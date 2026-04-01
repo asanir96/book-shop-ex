@@ -25,11 +25,17 @@ function renderBooks() {
             <td>
                 <button class="read-btn">Read</button>
                 <button class="update-btn">Update</button>
-                <button class="delete-btn">Delete</button>
+                <button class="delete-btn" onclick = "onRemoveBook(${book.id})">Delete</button>
 
             </td>
         </tr>`
     }).join('')
 
     elTable.innerHTML = tableStrHTML
+}
+
+
+function onRemoveBook(bookId){
+    removeBook(bookId)
+    renderBooks()
 }
