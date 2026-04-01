@@ -24,7 +24,7 @@ function renderBooks() {
         <td>${book.price}</td>
             <td>
                 <button class="read-btn">Read</button>
-                <button class="update-btn">Update</button>
+                <button class="update-btn" onclick = "onUpdateBook(${book.id})">Update</button>
                 <button class="delete-btn" onclick = "onRemoveBook(${book.id})">Delete</button>
 
             </td>
@@ -35,7 +35,17 @@ function renderBooks() {
 }
 
 
-function onRemoveBook(bookId){
+function onRemoveBook(bookId) {
     removeBook(bookId)
     renderBooks()
 }
+
+function onUpdateBook(bookId) {
+    const newBookPrice = +prompt(`Enter a new price for the book "${gBooks.find(book => book.id === bookId).title}"`)
+    if (!newBookPrice) {
+        alert('Invalid input')
+        return
+    }
+    updatePrice(bookId, newBookPrice)
+    renderBooks()
+}   
