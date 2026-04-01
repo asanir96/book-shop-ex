@@ -20,8 +20,8 @@ function renderBooks() {
 
     tableStrHTML += gBooks.map(book => {
         return `<tr>
-            <td>${book.price}</td>
-            <td>${book.title}</td>
+        <td>${book.title}</td>
+        <td>${book.price}</td>
             <td>
                 <button class="read-btn">Read</button>
                 <button class="update-btn">Update</button>
