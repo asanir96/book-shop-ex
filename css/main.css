@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+td,th{
+    border: 0.1em solid rgb(159, 157, 157);
+
+}
+td {
+    margin: auto auto;
+    padding-inline: 0.4em;
+    padding-block: 0.2em;
+    align-items:center;
+}
+
+tr:nth-child(odd){
+    background-color: rgb(227, 223, 223);
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto auto;
+
+}
+
+tbody {
+    width: 300px;
+}
+
+th {
+    background-color: lightgray;
+    padding: 0.5em;
+}
+
+button{
+    border-radius: 5px;
+    border: 0;
+}
+.read-btn{
+    background-color: lightskyblue;
+}
+.update-btn{
+    background-color: moccasin;
+    
+}
+.delete-btn{
+    background-color: orange;
+
+}
