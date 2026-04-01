@@ -23,5 +23,5 @@ var gBooks = [
 ]
 
 function getBooks() {
-    console.log('hi')
+    return gBooks
 }
