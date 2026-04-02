@@ -118,9 +118,11 @@ function showSuccessMsg(msg) {
     const elSuccessMsg = document.querySelector('.success-message')
 
     elSuccessMsg.innerText = msg
+    elSuccessMsg.style.zIndex = 1
     elSuccessMsg.style.display = 'block'
+    elSuccessMsg.style.opacity = '1.0'
 
     gSuccessMsgTimeout = setTimeout((elSuccessMsg) => {
-        elSuccessMsg.style.display = 'none'
+        elSuccessMsg.style.opacity = '0.0'
     }, 2000, elSuccessMsg);
 }

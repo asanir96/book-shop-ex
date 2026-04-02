@@ -13,16 +13,16 @@ function getBooks(bookTitle) {
 
     console.log('lowerBookTitle', lowerBookTitle)
     return gBooks.filter(book => book.title.split('')
-                                            .map(char => char.toLowerCase())
-                                            .join('')
-                                            .substring(0, lowerBookTitle.length) === lowerBookTitle)
+        .map(char => char.toLowerCase())
+        .join('')
+        .substring(0, lowerBookTitle.length) === lowerBookTitle)
 }
 
 function removeBook(bookId) {
     const bookIdx = gBooks.findIndex(book => book.id === bookId)
     gBooks.splice(bookIdx, 1)
 
-     _saveBooks()
+    _saveBooks()
 }
 
 function updatePrice(bookId, price) {

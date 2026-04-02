@@ -84,7 +84,25 @@ img {
     height: 40vw;
 }
 
-.filter{
+.filter {
     margin-block: 10px;
     display: flex;
+}
+
+.success-message {
+    display: none;
+
+    position: fixed;
+    z-index: -1;
+
+    bottom: 2em;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    padding: 0.2em;
+    background-color: rgb(42, 89, 41);
+    color: rgb(227, 240, 178);
+    text-align: center;
+
+    transition: 0.2s;
 }
