@@ -18,7 +18,7 @@ function renderBooks() {
         <td>${book.title}</td>
         <td>${book.price}</td>
             <td>
-                <button class="read-btn">Read</button>
+                <button class="read-btn" onclick = "onShowDetails('${book.id}')">Read</button>
                 <button class="update-btn" onclick = "onUpdateBook('${book.id}')">Update</button>
                 <button class="delete-btn" onclick = "onRemoveBook('${book.id}')">Delete</button>
 
@@ -57,7 +57,7 @@ function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
     const elCancelBtn = document.querySelector(cnclBtnSlctr)
 
     elInputRow.style.display = 'table-row'
-    
+
     elApproveBtn.style.display = 'inline'
     elCancelBtn.style.display = 'inline'
 }
@@ -74,11 +74,22 @@ function onAddBook(titleInputSlctr, priceInputSlctr) {
     const elAddBtn = document.querySelector('.add-btn')
     const elApproveBtn = document.querySelector('.add-approve-btn')
     const elCancelBtn = document.querySelector('.add-cancel-btn')
-    
+
     elApproveBtn.style.display = 'none'
     elCancelBtn.style.display = 'none'
     elAddBtn.style.display = 'inline'
-    
+
     addBook(inputTitle, inputPrice)
     renderBooks()
+}
+
+function onShowDetails(bookId) {
+    const book = getBookById(bookId)
+    const bookJSON = JSON.stringify(book)
+
+    const elDialog = document.querySelector('dialog')
+    const elDialogPre = elDialog.querySelector('pre')
+
+    elDialogPre.innerText = bookJSON
+    elDialog.showModal()
 }

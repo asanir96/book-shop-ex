@@ -21,10 +21,13 @@ function updatePrice(bookId, price) {
 
 function addBook(title, price, imgUrl) {
     gBooks.push({ id: makeid(), title, price, imgUrl })
-    
+
     _saveBooks()
 }
 
+function getBookById(id) {
+    return gBooks.find(book => book.id === id)
+}
 
 function _createBooks() {
     gBooks = loadFromStorage(STORAGE_KEY)
