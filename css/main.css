@@ -47,3 +47,21 @@ button{
     background-color: orange;
 
 }
+
+.add-btn{
+    margin: auto auto;
+}
+
+.input-row{
+    display: none;
+}
+
+input{
+    width:100%;
+    margin:auto auto;
+}
+
+.add-approve-btn,
+.add-cancel-btn{
+    display: none;
+}

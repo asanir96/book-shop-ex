@@ -1,26 +1,8 @@
 'use strict'
+const STORAGE_KEY = 'books'
 
-var gBooks = [
-    {
-        id: 1,
-        title: 'Harry Potter and the Order of Phoenix',
-        price: 120,
-        imgUrl: 'lori-ipsi.jpg'
-    },
-    {
-        id: 2,
-        title: 'The Hobbit',
-        price: 160,
-        imgUrl: 'lori-ipsi.jpg'
-    },
-    {
-        id: 3,
-        title: 'The Martian',
-        price: 80,
-        imgUrl: 'lori-ipsi.jpg'
-    }
-
-]
+var gBooks
+_createBooks()
 
 function getBooks() {
     return gBooks
@@ -37,6 +19,34 @@ function updatePrice(bookId, price) {
 }
 
 
-function addBook() {
+function addBook(title, price, imgUrl) {
+    gBooks.push({ id: makeid(), title, price, imgUrl })
+    
+    _saveBooks()
+}
 
+
+function _createBooks() {
+    gBooks = loadFromStorage(STORAGE_KEY)
+    if (gBooks && gBooks.length > 0) return
+
+    gBooks = [
+        _createBook('Harry Potter and the half blood price', 160, null),
+        _createBook('The Hobbit', 120, null),
+        _createBook('The Martian', 80, null),
+    ]
+    _saveBooks()
+}
+
+function _createBook(title, price, imgUrl) {
+    return {
+        id: makeid(),
+        title,
+        price,
+        imgUrl
+    }
+}
+
+function _saveBooks() {
+    saveToStorage(STORAGE_KEY, gBooks)
 }

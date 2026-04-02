@@ -48,4 +48,37 @@ function onUpdateBook(bookId) {
     }
     updatePrice(bookId, newBookPrice)
     renderBooks()
-}   
+}
+
+function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
+    elAddBtn.style.display = 'none'
+    const elInputRow = document.querySelector(inputSlctr)
+    const elApproveBtn = document.querySelector(apprvBtnSlctr)
+    const elCancelBtn = document.querySelector(cnclBtnSlctr)
+
+    elInputRow.style.display = 'table-row'
+    
+    elApproveBtn.style.display = 'inline'
+    elCancelBtn.style.display = 'inline'
+}
+
+
+function onAddBook(titleInputSlctr, priceInputSlctr) {
+    const inputPrice = +document.querySelector(priceInputSlctr).value
+    const inputTitle = document.querySelector(titleInputSlctr).value
+
+    if (!inputPrice || !inputTitle) {
+        alert('All fields must be filled')
+        return
+    }
+    const elAddBtn = document.querySelector('.add-btn')
+    const elApproveBtn = document.querySelector('.add-approve-btn')
+    const elCancelBtn = document.querySelector('.add-cancel-btn')
+    
+    elApproveBtn.style.display = 'none'
+    elCancelBtn.style.display = 'none'
+    elAddBtn.style.display = 'inline'
+    
+    addBook(inputTitle, inputPrice)
+    renderBooks()
+}

@@ -10,7 +10,7 @@
 
 <body onload="onInit()">
     <div class="table-container">
-    <table>
+        <table>
             <thead>
                 <tr>
                     <th>Title</th>
@@ -20,9 +20,17 @@
             </thead>
             <tbody>
             </tbody>
-    </table>
+        </table>
+        <button class="add-btn"
+            onclick="onRevealInputRow('.input-row','.add-approve-btn','.add-cancel-btn',this)">+</button>
+        <button class="add-approve-btn" onclick="onAddBook('.title-input','.price-input')">✓</button>
+        <button class="add-cancel-btn">X</button>
+    </div>
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/util.service.js"></script>
     <script src="js/services/book.service.js"></script>
     <script src="js/controller/controller.js"></script>
+
 </body>
 
 </html>
