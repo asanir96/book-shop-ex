@@ -6,32 +6,32 @@ function onInit() {
 }
 
 function renderBooks() {
-    gBooks = getBooks()
+    const books = getBooks()
     console.log(gBooks)
 
-    const elTable = document.querySelector('table')
+    const elTBody = document.querySelector('tbody')
 
-    var tableStrHTML = `<table>
-                        <tr>
-                            <th>Title</th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                        </tr>`
+    var tableStrHTML = ''
 
-    tableStrHTML += gBooks.map(book => {
+    tableStrHTML += books.map(book => {
         return `<tr>
         <td>${book.title}</td>
         <td>${book.price}</td>
             <td>
                 <button class="read-btn">Read</button>
-                <button class="update-btn" onclick = "onUpdateBook(${book.id})">Update</button>
-                <button class="delete-btn" onclick = "onRemoveBook(${book.id})">Delete</button>
+                <button class="update-btn" onclick = "onUpdateBook('${book.id}')">Update</button>
+                <button class="delete-btn" onclick = "onRemoveBook('${book.id}')">Delete</button>
 
             </td>
         </tr>`
     }).join('')
 
-    elTable.innerHTML = tableStrHTML
+    tableStrHTML += ` <tr class="input-row">           
+            <td> <input class="title-input" type="text"></td>
+            <td><input class="price-input" type="number"></td>
+            <td></td> </tr>`
+
+    elTBody.innerHTML = tableStrHTML
 }
 
 

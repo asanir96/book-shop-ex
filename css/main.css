@@ -5,11 +5,15 @@ td,th{
     border: 0.1em solid rgb(159, 157, 157);
 
 }
-td {
+
+.table-container{
+    width:80vw;
     margin: auto auto;
+}
+td {
     padding-inline: 0.4em;
     padding-block: 0.2em;
-    align-items:center;
+    align-content:center;
 }
 
 tr:nth-child(odd){
@@ -17,13 +21,10 @@ tr:nth-child(odd){
 }
 
 table {
+    width:100%;
     border-collapse: collapse;
     margin: auto auto;
 
-}
-
-tbody {
-    width: 300px;
 }
 
 th {
