@@ -1,7 +1,7 @@
 'use strict'
 var gFilterBy = ''
 var gSuccessMsgTimeout
-
+var gIsEditMode = false
 function onInit() {
     renderBooks()
 }
@@ -37,6 +37,9 @@ function renderBooks() {
 
 
 function onRemoveBook(bookId) {
+    if (gIsEditMode) return
+
+    cancelAddRow()
     removeBook(bookId)
     renderBooks()
 
@@ -44,6 +47,9 @@ function onRemoveBook(bookId) {
 }
 
 function onUpdateBook(bookId) {
+    if (gIsEditMode) return
+
+    cancelAddRow()
     const newBookPrice = +prompt(`Enter a new price for the book "${gBooks.find(book => book.id === bookId).title}"`)
     if (!newBookPrice) {
         alert('Invalid input')
@@ -56,6 +62,7 @@ function onUpdateBook(bookId) {
 }
 
 function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
+    gIsEditMode = true
     elAddBtn.style.display = 'none'
     const elInputRow = document.querySelector(inputSlctr)
     const elApproveBtn = document.querySelector(apprvBtnSlctr)
@@ -73,6 +80,7 @@ function onAddBook(titleInputSlctr, priceInputSlctr) {
     const inputTitle = document.querySelector(titleInputSlctr).value
 
     if (!inputPrice || !inputTitle) {
+        gIsEditMode = false
         alert('All fields must be filled')
         return
     }
@@ -87,9 +95,12 @@ function onAddBook(titleInputSlctr, priceInputSlctr) {
     addBook(inputTitle, inputPrice)
     showSuccessMsg('Book was added successfully!')
     renderBooks()
+    gIsEditMode = false
 }
 
 function onShowDetails(bookId) {
+    if (gIsEditMode) return
+
     const book = getBookById(bookId)
     const bookJSON = JSON.stringify(book)
 
@@ -125,4 +136,17 @@ function showSuccessMsg(msg) {
     gSuccessMsgTimeout = setTimeout((elSuccessMsg) => {
         elSuccessMsg.style.opacity = '0.0'
     }, 2000, elSuccessMsg);
+}
+
+function cancelAddRow() {
+    const elInputRow = document.querySelector('.input-row')
+    const elAddBtn = document.querySelector('.add-btn')
+    const elApproveBtn = document.querySelector('.add-approve-btn')
+    const elCancelBtn = document.querySelector('.add-cancel-btn')
+
+    elInputRow.style.display = 'none'
+
+    elApproveBtn.style.display = 'none'
+    elCancelBtn.style.display = 'none'
+    elAddBtn.style.display = 'inline'
 }
