@@ -1,5 +1,8 @@
 'use strict'
 const STORAGE_KEY = 'books'
+const HARRY_POTTER_IMG_URL = 'img/Harry_Potter_and_the_Order_of_the_Phoenix.jpg'
+const THE_HOBBIT_IMG_URL = 'img/download.jpeg'
+const THE_MARTIAN_IMG_URL = 'img/810W+zAp2DL._AC_UF1000,1000_QL80_.jpg'
 
 var gBooks
 _createBooks()
@@ -34,9 +37,9 @@ function _createBooks() {
     if (gBooks && gBooks.length > 0) return
 
     gBooks = [
-        _createBook('Harry Potter and the half blood price', 160, null),
-        _createBook('The Hobbit', 120, null),
-        _createBook('The Martian', 80, null),
+        _createBook('Harry Potter and the Order of Phoenix', 160, HARRY_POTTER_IMG_URL),
+        _createBook('The Hobbit', 120, THE_HOBBIT_IMG_URL),
+        _createBook('The Martian', 80, THE_MARTIAN_IMG_URL),
     ]
     _saveBooks()
 }

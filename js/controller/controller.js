@@ -88,8 +88,13 @@ function onShowDetails(bookId) {
     const bookJSON = JSON.stringify(book)
 
     const elDialog = document.querySelector('dialog')
-    const elDialogPre = elDialog.querySelector('pre')
+    const elDialogH2 = elDialog.querySelector('h2')
+    const elDialogImg = elDialog.querySelector('img')
+    const elDialogH3 = elDialog.querySelector('h3')
 
-    elDialogPre.innerText = bookJSON
+    elDialogImg.src = book.imgUrl
+    elDialogH2.innerText = book.title
+    elDialogH3.innerText = `Price: ${book.price}$`
+    
     elDialog.showModal()
 }

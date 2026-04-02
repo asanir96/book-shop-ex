@@ -1,27 +1,30 @@
 * {
     box-sizing: border-box;
 }
-td,th{
+
+td,
+th {
     border: 0.1em solid rgb(159, 157, 157);
 
 }
 
-.table-container{
-    width:80vw;
+.table-container {
+    width: 80vw;
     margin: auto auto;
 }
+
 td {
     padding-inline: 0.4em;
     padding-block: 0.2em;
-    align-content:center;
+    align-content: center;
 }
 
-tr:nth-child(odd){
+tr:nth-child(odd) {
     background-color: rgb(227, 223, 223);
 }
 
 table {
-    width:100%;
+    width: 100%;
     border-collapse: collapse;
     margin: auto auto;
 
@@ -32,36 +35,51 @@ th {
     padding: 0.5em;
 }
 
-button{
+button {
     border-radius: 5px;
     border: 0;
 }
-.read-btn{
+
+.read-btn {
     background-color: lightskyblue;
 }
-.update-btn{
+
+.update-btn {
     background-color: moccasin;
-    
+
 }
-.delete-btn{
+
+.delete-btn {
     background-color: orange;
 
 }
 
-.add-btn{
+.add-btn {
     margin: auto auto;
 }
 
-.input-row{
+.input-row {
     display: none;
 }
 
-input{
-    width:100%;
-    margin:auto auto;
+input {
+    width: 100%;
+    margin: auto auto;
 }
 
 .add-approve-btn,
-.add-cancel-btn{
+.add-cancel-btn {
     display: none;
+}
+
+dialog form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+img {
+    margin: auto auto;
+    width: 30vw;
+    height: 40vw;
 }
