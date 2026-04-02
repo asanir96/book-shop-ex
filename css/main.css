@@ -83,3 +83,8 @@ img {
     width: 30vw;
     height: 40vw;
 }
+
+.filter{
+    margin-block: 10px;
+    display: flex;
+}

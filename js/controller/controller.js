@@ -1,12 +1,12 @@
 'use strict'
-var gBooks
+var gFilterBy = ''
 
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
-    const books = getBooks()
+    const books = getBooks(gFilterBy)
     console.log(gBooks)
 
     const elTBody = document.querySelector('tbody')
@@ -95,6 +95,12 @@ function onShowDetails(bookId) {
     elDialogImg.src = book.imgUrl
     elDialogH2.innerText = book.title
     elDialogH3.innerText = `Price: ${book.price}$`
-    
+
     elDialog.showModal()
+}
+
+function onFilter(elInput) {
+    gFilterBy = elInput.value
+
+    renderBooks()
 }

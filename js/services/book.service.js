@@ -7,8 +7,15 @@ const THE_MARTIAN_IMG_URL = 'img/810W+zAp2DL._AC_UF1000,1000_QL80_.jpg'
 var gBooks
 _createBooks()
 
-function getBooks() {
-    return gBooks
+function getBooks(bookTitle) {
+    const lowerBookTitle = bookTitle.trim().split('').map(char => char.toLowerCase()).join('')
+    if (!lowerBookTitle) return gBooks
+
+    console.log('lowerBookTitle', lowerBookTitle)
+    return gBooks.filter(book => book.title.split('')
+                                            .map(char => char.toLowerCase())
+                                            .join('')
+                                            .substring(0, lowerBookTitle.length) === lowerBookTitle)
 }
 
 function removeBook(bookId) {
