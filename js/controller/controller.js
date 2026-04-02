@@ -74,6 +74,10 @@ function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
     elCancelBtn.style.display = 'inline'
 }
 
+function onCancelAddBook() {
+    cancelAddRow()
+    enableActions()
+}
 
 function onAddBook(titleInputSlctr, priceInputSlctr) {
     const inputPrice = +document.querySelector(priceInputSlctr).value
@@ -123,7 +127,6 @@ function onFilter(elInput) {
 }
 
 function showSuccessMsg(msg) {
-    console.log(msg)
     clearTimeout(gSuccessMsgTimeout)
 
     const elSuccessMsg = document.querySelector('.success-message')
@@ -149,4 +152,30 @@ function cancelAddRow() {
     elApproveBtn.style.display = 'none'
     elCancelBtn.style.display = 'none'
     elAddBtn.style.display = 'inline'
+}
+
+function disableActions() {
+    gIsEditMode = true
+
+    document.querySelectorAll('.read-btn').forEach(btn => btn.style.opacity = '0.4')
+    document.querySelectorAll('.update-btn').forEach(btn => btn.style.opacity = '0.4')
+    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.opacity = '0.4')
+
+    const elFilterInput = document.querySelector(".filter input")
+    elFilterInput.disabled = true;
+    elFilterInput.placeholder = 'Finish adding a row or cancel';
+    elFilterInput.style.opacity = '0.4'
+}
+
+function enableActions() {
+    gIsEditMode = false
+
+    document.querySelectorAll('.read-btn').forEach(btn => btn.style.opacity = '1')
+    document.querySelectorAll('.update-btn').forEach(btn => btn.style.opacity = '1')
+    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.opacity = '1')
+
+    const elFilterInput = document.querySelector(".filter input")
+    elFilterInput.placeholder = 'Filter by Book Title';
+    elFilterInput.style.opacity = '1'
+
 }

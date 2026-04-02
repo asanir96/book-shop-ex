@@ -54,8 +54,28 @@ button {
 
 }
 
+.add-approve-btn,
+.add-cancel-btn,
 .add-btn {
-    margin: auto auto;
+    width: 3em;
+    margin: 5px auto;
+
+    color: white;
+    background-color: rgb(92, 90, 93);
+}
+
+.add-approve-btn:hover,
+.add-cancel-btn:hover,
+.add-btn:hover {
+    background-color: rgb(145, 143, 146);
+
+}
+
+.add-approve-btn:active,
+.add-cancel-btn:active,
+.add-btn:active {
+    background-color: rgb(145, 143, 146);
+    box-shadow: black inset 2px 2px 2px;
 }
 
 .input-row {

@@ -27,7 +27,7 @@
         <button class="add-btn"
             onclick="onRevealInputRow('.input-row','.add-approve-btn','.add-cancel-btn',this)">+</button>
         <button class="add-approve-btn" onclick="onAddBook('.title-input','.price-input')">✓</button>
-        <button class="add-cancel-btn">X</button>
+        <button class="add-cancel-btn" onclick="onCancelAddBook()">X</button>
     </div>
     <dialog class="details-modal">
         <form method="dialog">
@@ -38,7 +38,7 @@
         </form>
     </dialog>
     <div class="success-message">
-        
+
     </div>
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/util.service.js"></script>
