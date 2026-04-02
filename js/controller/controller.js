@@ -62,7 +62,8 @@ function onUpdateBook(bookId) {
 }
 
 function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
-    gIsEditMode = true
+    disableActions()
+
     elAddBtn.style.display = 'none'
     const elInputRow = document.querySelector(inputSlctr)
     const elApproveBtn = document.querySelector(apprvBtnSlctr)
