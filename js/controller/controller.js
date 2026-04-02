@@ -1,5 +1,6 @@
 'use strict'
 var gFilterBy = ''
+var gSuccessMsgTimeout
 
 function onInit() {
     renderBooks()
@@ -38,6 +39,8 @@ function renderBooks() {
 function onRemoveBook(bookId) {
     removeBook(bookId)
     renderBooks()
+
+    showSuccessMsg('Book was deleted successfully!')
 }
 
 function onUpdateBook(bookId) {
@@ -48,6 +51,8 @@ function onUpdateBook(bookId) {
     }
     updatePrice(bookId, newBookPrice)
     renderBooks()
+    showSuccessMsg('Book was updated successfully!')
+
 }
 
 function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
@@ -80,6 +85,7 @@ function onAddBook(titleInputSlctr, priceInputSlctr) {
     elAddBtn.style.display = 'inline'
 
     addBook(inputTitle, inputPrice)
+    showSuccessMsg('Book was added successfully!')
     renderBooks()
 }
 
@@ -103,4 +109,18 @@ function onFilter(elInput) {
     gFilterBy = elInput.value
 
     renderBooks()
+}
+
+function showSuccessMsg(msg) {
+    console.log(msg)
+    clearTimeout(gSuccessMsgTimeout)
+
+    const elSuccessMsg = document.querySelector('.success-message')
+
+    elSuccessMsg.innerText = msg
+    elSuccessMsg.style.display = 'block'
+
+    gSuccessMsgTimeout = setTimeout((elSuccessMsg) => {
+        elSuccessMsg.style.display = 'none'
+    }, 2000, elSuccessMsg);
 }
