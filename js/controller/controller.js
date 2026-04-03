@@ -176,6 +176,7 @@ function enableActions() {
     document.querySelectorAll('.delete-btn').forEach(btn => btn.style.opacity = '1')
 
     const elFilterInput = document.querySelector(".filter input")
+elFilterInput.disabled = false;
     elFilterInput.placeholder = 'Filter by Book Title';
     elFilterInput.style.opacity = '1'
 
