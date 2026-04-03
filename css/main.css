@@ -30,8 +30,8 @@ table {
 
 }
 
-tr td:nth-child(2){
-width:6em;
+tr td:nth-child(2) {
+    width: 6em;
 }
 
 th {
@@ -42,6 +42,10 @@ th {
 button {
     border-radius: 5px;
     border: 0;
+}
+
+button:hover {
+    opacity: 0.7;
 }
 
 .read-btn {
@@ -131,6 +135,104 @@ img {
     transition: 0.2s;
 }
 
-.price-input{
+.price-input {
     width: 6em;
+}
+
+.rate-action-btn {
+    margin-block: 5px;
+}
+
+.rate-minus-btn,
+.rate-plus-btn,
+.rate-numbers-container {
+    display: none;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    width: 35px;
+    height: 35px;
+    padding: 0.2em;
+    text-align: center;
+    margin-inline: 0.1em;
+    background-color: rgb(192, 192, 245);
+    border: solid 3px rgb(114, 114, 208);
+    border-radius: 5px;
+    font-weight: 200;
+}
+
+.rate-minus-btn:hover,
+.rate-plus-btn:hover {
+    opacity: 0.7;
+}
+
+.rate-minus-btn:active,
+.rate-plus-btn:active {
+    box-shadow: inset -1px 1px 2px rgb(49, 49, 90);
+}
+
+.rate-numbers-container {
+    color: rgb(106, 97, 47);
+    width: 2em;
+    font-size: 1.5em;
+    line-height: 100%;
+}
+
+.rate-container {
+    display: flex;
+
+}
+
+.rate-plus-inner {
+    position: relative;
+    height: 70%;
+    flex-basis: 70%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    background-color: rgb(114, 114, 208);
+    color: rgb(243, 223, 113);
+    text-align: center;
+    line-height: 70%;
+    border-radius: 50%;
+}
+
+.modal-close-btn {
+    margin-top: 10px;
+}
+
+.minus-sign,
+.plus-sign-horizontal {
+    position: absolute;
+    background-color: rgb(243, 223, 113);
+    width: 70%;
+    height: 20%;
+    /* z-index: 2; */
+}
+
+.plus-sign-vertical {
+    position: absolute;
+    background-color: rgb(243, 223, 113);
+    width: 20%;
+    height: 70%;
+}
+
+.rate-action-btn {
+    background-color: rgb(114, 114, 208);
+    color: rgb(243, 223, 113);
+    outline: 2px solid rgb(243, 223, 113);
+    outline-offset: -3px;
+    padding: 6px
+}
+
+.rate-action-btn:hover {
+    opacity: 0.7;
+}
+
+.rate-action-btn:active{
+    box-shadow: inset -1px 1px 2px rgb(49, 49, 90);
 }

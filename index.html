@@ -10,7 +10,7 @@
 
 <body onload="onInit()">
     <div class="table-container">
-        <form class = "filter">
+        <form class="filter">
             <input type="text" name="" id="" placeholder="Filter by Book Title" oninput="onFilter(this)">
         </form>
         <table>
@@ -34,7 +34,32 @@
             <h2></h2>
             <img src="" alt="">
             <h3></h3>
-            <button>x</button>
+            <div class="rate-container">
+                <button class="rate-plus-btn" onclick="onRateChange(1,'.rate-numbers-container',event)">
+                    <div class="rate-plus-inner">
+                        <div class="plus-sign-horizontal">
+
+                        </div>
+                        <div class="plus-sign-vertical">
+
+                        </div>
+                    </div>
+                </button>
+                <div class="rate-numbers-container">0 </div>
+                <button class="rate-minus-btn" onclick="onRateChange(-1,'.rate-numbers-container',event)">
+                    <div class="rate-plus-inner">
+
+                        <div class="minus-sign">
+
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <button class="rate-action-btn"
+                onclick="onShowRatingBtn(this,'.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)">Rate
+                this Book</button>
+            <button class="modal-close-btn"
+                onclick="hideRatingAction('.rate-action-btn','.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)">x</button>
         </form>
     </dialog>
     <div class="success-message">

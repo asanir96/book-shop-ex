@@ -176,8 +176,62 @@ function enableActions() {
     document.querySelectorAll('.delete-btn').forEach(btn => btn.style.opacity = '1')
 
     const elFilterInput = document.querySelector(".filter input")
-elFilterInput.disabled = false;
+    elFilterInput.disabled = false;
     elFilterInput.placeholder = 'Filter by Book Title';
     elFilterInput.style.opacity = '1'
 
 }
+
+function onShowRatingBtn(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
+    ev.preventDefault()
+    elRateActionBtn.innerText = 'Confirm Rating'
+    elRateActionBtn.setAttribute('onclick', 'onConfirmRating(event)')
+
+    const elPlsBtn = document.querySelector(plsBtnSlctr)
+    const elMinusBtn = document.querySelector(minusBtnSlctr)
+    const elRatingNumContainer = document.querySelector(rateNumsContainerSlctr)
+
+    elRatingNumContainer.style.display = 'block'
+    elPlsBtn.style.display = 'flex'
+    elMinusBtn.style.display = 'flex'
+}
+
+function hideRatingAction(rateActionBtnSlctr, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
+    const elRateActionBtn = document.querySelector(rateActionBtnSlctr)
+    const elPlsBtn = document.querySelector(plsBtnSlctr)
+    const elMinusBtn = document.querySelector(minusBtnSlctr)
+    const elRatingNumContainer = document.querySelector(rateNumsContainerSlctr)
+
+    elRateActionBtn.setAttribute('onclick', `onShowRatingBtn(this,'.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)`)
+    elRateActionBtn.innerText = 'Rate this book'
+    elRateActionBtn.style.display = 'block'
+
+    elRatingNumContainer.innerText = 0
+    elRatingNumContainer.style.display = 'none'
+    elPlsBtn.style.display = 'none'
+    elMinusBtn.style.display = 'none'
+}
+
+function onRateChange(changeDirection, rateNumContainerSlctr, ev) {
+    ev.preventDefault()
+    const elRatingNumContainer = document.querySelector(rateNumContainerSlctr)
+
+    var currRating = +elRatingNumContainer.textContent
+    if (currRating + changeDirection < 0) return
+
+    elRatingNumContainer.innerText = currRating + changeDirection
+
+}
+
+function onRatingHandler(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
+    const elRatingNumContainer = document.querySelector('.rate-numbers-container')
+
+    console.log(elRatingNumContainer.style.display)
+    if (elRatingNumContainer.style.display !== 'none') onShowRatingBtn(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev)
+    else confirmRating()
+}
+
+function onConfirmRating(ev) {
+    hideRatingAction('.rate-action-btn', '.rate-plus-btn', '.rate-minus-btn', '.rate-numbers-container')
+}
+

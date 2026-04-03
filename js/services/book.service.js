@@ -48,19 +48,20 @@ function _createBooks() {
     if (gBooks && gBooks.length > 0) return
 
     gBooks = [
-        _createBook('Harry Potter and the Order of Phoenix', 160, HARRY_POTTER_IMG_URL),
-        _createBook('The Hobbit', 120, THE_HOBBIT_IMG_URL),
-        _createBook('The Martian', 80, THE_MARTIAN_IMG_URL),
+        _createBook('Harry Potter and the Order of Phoenix', 160, HARRY_POTTER_IMG_URL, 0),
+        _createBook('The Hobbit', 120, THE_HOBBIT_IMG_URL, 0),
+        _createBook('The Martian', 80, THE_MARTIAN_IMG_URL, 0),
     ]
     _saveBooks()
 }
 
-function _createBook(title, price, imgUrl) {
+function _createBook(title, price, imgUrl, rating) {
     return {
         id: makeid(),
         title,
         price,
-        imgUrl
+        imgUrl,
+        rating
     }
 }
 
