@@ -15,7 +15,7 @@ function getBooks(bookTitle) {
     return gBooks.filter(book => book.title.split('')
         .map(char => char.toLowerCase())
         .join('')
-        .substring(0, lowerBookTitle.length) === lowerBookTitle)
+        .includes(lowerBookTitle))
 }
 
 function removeBook(bookId) {
