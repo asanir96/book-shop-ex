@@ -20,7 +20,13 @@ function renderBooks() {
 
     tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
-        strHTML += `<tr> <td>${book.title}<div class= "rating-chip">${book.rating ? book.rating : ''} </div></td>`
+        strHTML += `<tr> 
+                        <td> 
+                            <div class="flex-wrapper">
+                                 ${book.title}
+                                <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
+                            </dv>
+                        </td>`
 
         strHTML += `<td> ${book.price}</td>
                 <td>
@@ -115,7 +121,7 @@ function onShowDetails(bookId) {
     const elDialog = document.querySelector('dialog')
     const elDialogImg = elDialog.querySelector('img')
     elDialogImg.src = gCurrBook.imgUrl
-    
+
     const elDialogH2 = elDialog.querySelector('h2')
     const elDialogH3 = elDialog.querySelector('h3')
 
@@ -247,7 +253,7 @@ function onConfirmRating(rateNumsContainer, ev) {
 
 function renderRatingChipStyle(elRateChip, idx) {
     const book = gFilteredBooks[idx]
-    
+
     var strHTML = STAR.repeat(book.rating)
     console.log(book)
     console.log(elRateChip)
@@ -260,6 +266,6 @@ function renderRatingChipStyle(elRateChip, idx) {
         elRateChip.classList.add('medium-rating-chip')
     } else if (book.rating === 1) {
         elRateChip.classList.add('low-rating-chip')
-        
+
     }
 }
