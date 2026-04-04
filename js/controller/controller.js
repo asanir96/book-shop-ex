@@ -2,6 +2,8 @@
 var gFilterBy = ''
 var gSuccessMsgTimeout
 var gIsEditMode = false
+var gCurrBook
+
 function onInit() {
     renderBooks()
 }
@@ -15,22 +17,26 @@ function renderBooks() {
     var tableStrHTML = ''
 
     tableStrHTML += books.map(book => {
-        return `<tr>
-        <td>${book.title}</td>
-        <td>${book.price}</td>
-            <td>
-                <button class="read-btn" onclick = "onShowDetails('${book.id}')">Read</button>
-                <button class="update-btn" onclick = "onUpdateBook('${book.id}')">Update</button>
-                <button class="delete-btn" onclick = "onRemoveBook('${book.id}')">Delete</button>
+        var strHTML = ''
+        if (book.rating) strHTML += `<tr> <td>${book.title}<div class= "rating-label">${book.rating ? book.rating : ''} </div></td>`
+        else strHTML += `<tr><td>${book.title}</td>`
 
-            </td>
-        </tr>`
-    }).join('')
+        strHTML += `<td> ${book.price}</td>
+                <td>
+                    <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
+                    <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
+                    <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
 
-    tableStrHTML += ` <tr class="input-row">           
+                </td>
+                </tr> `
+        return strHTML
+    }
+    ).join('')
+
+    tableStrHTML += ` <tr class="input-row" >           
             <td> <input class="title-input" type="text"></td>
             <td><input class="price-input" type="number"></td>
-            <td></td> </tr>`
+            <td></td> </tr> `
 
     elTBody.innerHTML = tableStrHTML
 }
@@ -55,7 +61,7 @@ function onUpdateBook(bookId) {
         alert('Invalid input')
         return
     }
-    updatePrice(bookId, newBookPrice)
+    updateBook(bookId, 'price', newBookPrice)
     renderBooks()
     showSuccessMsg('Book was updated successfully!')
 
@@ -106,17 +112,17 @@ function onAddBook(titleInputSlctr, priceInputSlctr) {
 function onShowDetails(bookId) {
     if (gIsEditMode) return
 
-    const book = getBookById(bookId)
-    const bookJSON = JSON.stringify(book)
+    gCurrBook = getBookById(bookId)
+    const bookJSON = JSON.stringify(gCurrBook)
 
     const elDialog = document.querySelector('dialog')
     const elDialogH2 = elDialog.querySelector('h2')
     const elDialogImg = elDialog.querySelector('img')
     const elDialogH3 = elDialog.querySelector('h3')
 
-    elDialogImg.src = book.imgUrl
-    elDialogH2.innerText = book.title
-    elDialogH3.innerText = `Price: ${book.price}$`
+    elDialogImg.src = gCurrBook.imgUrl
+    elDialogH2.innerText = gCurrBook.title
+    elDialogH3.innerText = `Price: ${gCurrBook.price} $`
 
     elDialog.showModal()
 }
@@ -185,7 +191,7 @@ function enableActions() {
 function onShowRatingBtn(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
     ev.preventDefault()
     elRateActionBtn.innerText = 'Confirm Rating'
-    elRateActionBtn.setAttribute('onclick', 'onConfirmRating(event)')
+    elRateActionBtn.setAttribute('onclick', `onConfirmRating('.rate-numbers-container', event)`)
 
     const elPlsBtn = document.querySelector(plsBtnSlctr)
     const elMinusBtn = document.querySelector(minusBtnSlctr)
@@ -197,12 +203,14 @@ function onShowRatingBtn(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsCo
 }
 
 function hideRatingAction(rateActionBtnSlctr, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
+    gCurrBook = null
+
     const elRateActionBtn = document.querySelector(rateActionBtnSlctr)
     const elPlsBtn = document.querySelector(plsBtnSlctr)
     const elMinusBtn = document.querySelector(minusBtnSlctr)
     const elRatingNumContainer = document.querySelector(rateNumsContainerSlctr)
 
-    elRateActionBtn.setAttribute('onclick', `onShowRatingBtn(this,'.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)`)
+    elRateActionBtn.setAttribute('onclick', `onShowRatingBtn(this, '.rate-plus-btn', '.rate-minus-btn', '.rate-numbers-container', event)`)
     elRateActionBtn.innerText = 'Rate this book'
     elRateActionBtn.style.display = 'block'
 
@@ -217,7 +225,7 @@ function onRateChange(changeDirection, rateNumContainerSlctr, ev) {
     const elRatingNumContainer = document.querySelector(rateNumContainerSlctr)
 
     var currRating = +elRatingNumContainer.textContent
-    if (currRating + changeDirection < 0) return
+    if (currRating + changeDirection < 0 || currRating + changeDirection > 5) return
 
     elRatingNumContainer.innerText = currRating + changeDirection
 
@@ -231,7 +239,11 @@ function onRatingHandler(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsCo
     else confirmRating()
 }
 
-function onConfirmRating(ev) {
+function onConfirmRating(rateNumsContainer, ev) {
+
+    const elRateNumbsContainer = document.querySelector(rateNumsContainer)
+    updateBook(gCurrBook.id, 'rating', elRateNumbsContainer.innerText)
     hideRatingAction('.rate-action-btn', '.rate-plus-btn', '.rate-minus-btn', '.rate-numbers-container')
+    renderBooks()
 }
 

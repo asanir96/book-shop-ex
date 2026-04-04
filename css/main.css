@@ -34,6 +34,10 @@ tr td:nth-child(2) {
     width: 6em;
 }
 
+td:first-child {
+    display: flex;
+}
+
 th {
     background-color: lightgray;
     padding: 0.5em;
@@ -233,6 +237,24 @@ img {
     opacity: 0.7;
 }
 
-.rate-action-btn:active{
+.rate-action-btn:active {
     box-shadow: inset -1px 1px 2px rgb(49, 49, 90);
+}
+
+.rating-label {
+    opacity: 0.5;
+    width: 2em;
+    margin-inline-start: 1.5em;
+    border-radius: 5px;
+    border:1px solid #155724;
+
+    background-color: #d4edda; 
+    color: #155724;
+    /* background-color: rgb(81, 148, 81); */
+    /* outline: 1.5px solid #155724; */
+    outline-offset: -3px;
+
+    /* color:rgb(243, 223, 113); */
+    text-align: center;
+    font-size: 0.7m;
 }

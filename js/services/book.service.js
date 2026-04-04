@@ -25,9 +25,9 @@ function removeBook(bookId) {
     _saveBooks()
 }
 
-function updatePrice(bookId, price) {
+function updateBook(bookId, property, value) {
     const book = gBooks.find(book => book.id === bookId)
-    book.price = price
+    book[property] = value
 
     _saveBooks()
 }
