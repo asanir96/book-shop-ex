@@ -48,7 +48,7 @@ function renderBooks() {
 function onRemoveBook(bookId) {
     if (gIsEditMode) return
 
-    cancelAddRow()
+    hideAddBookUI()
     removeBook(bookId)
     renderBooks()
 
@@ -58,7 +58,7 @@ function onRemoveBook(bookId) {
 function onUpdateBook(bookId) {
     if (gIsEditMode) return
 
-    cancelAddRow()
+    hideAddBookUI()
     const newBookPrice = +prompt(`Enter a new price for the book "${gBooks.find(book => book.id === bookId).title}"`)
     if (!newBookPrice) {
         alert('Invalid input')
@@ -85,7 +85,7 @@ function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
 }
 
 function onCancelAddBook() {
-    cancelAddRow()
+    hideAddBookUI()
     enableActions()
 }
 
@@ -152,7 +152,7 @@ function showSuccessMsg(msg) {
     }, 2000, elSuccessMsg);
 }
 
-function cancelAddRow() {
+function hideAddBookUI() {
     const elInputRow = document.querySelector('.input-row')
     const elAddBtn = document.querySelector('.add-btn')
     const elApproveBtn = document.querySelector('.add-approve-btn')
