@@ -3,23 +3,24 @@ var gFilterBy = ''
 var gSuccessMsgTimeout
 var gIsEditMode = false
 var gCurrBook
+var gFilteredBooks
 
+const STAR = '&#9733;'
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
-    const books = getBooks(gFilterBy)
+    gFilteredBooks = getBooks(gFilterBy)
     console.log(gBooks)
 
     const elTBody = document.querySelector('tbody')
 
     var tableStrHTML = ''
 
-    tableStrHTML += books.map(book => {
+    tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
-        if (book.rating) strHTML += `<tr> <td>${book.title}<div class= "rating-label">${book.rating ? book.rating : ''} </div></td>`
-        else strHTML += `<tr><td>${book.title}</td>`
+        strHTML += `<tr> <td>${book.title}<div class= "rating-chip">${book.rating ? book.rating : ''} </div></td>`
 
         strHTML += `<td> ${book.price}</td>
                 <td>
@@ -39,6 +40,8 @@ function renderBooks() {
             <td></td> </tr> `
 
     elTBody.innerHTML = tableStrHTML
+    const elRatingChips = elTBody.querySelectorAll('.rating-chip')
+    elRatingChips.forEach((elRatingChip, idx) => renderRatingChipStyle(elRatingChip, idx))
 }
 
 
@@ -247,3 +250,21 @@ function onConfirmRating(rateNumsContainer, ev) {
     renderBooks()
 }
 
+function renderRatingChipStyle(elRateChip, idx) {
+    const book = gFilteredBooks[idx]
+    
+    var strHTML = STAR.repeat(book.rating)
+    console.log(book)
+    console.log(elRateChip)
+
+    elRateChip.innerHTML = strHTML
+
+    if (book.rating <= 5 && book.rating > 3) {
+        elRateChip.classList.add('high-rating-chip')
+    } else if (book.rating <= 3 && book.rating > 1) {
+        elRateChip.classList.add('medium-rating-chip')
+    } else if (book.rating === 1) {
+        elRateChip.classList.add('low-rating-chip')
+        
+    }
+}

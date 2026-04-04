@@ -27,6 +27,7 @@ function removeBook(bookId) {
 
 function updateBook(bookId, property, value) {
     const book = gBooks.find(book => book.id === bookId)
+    value = isNaN(value) ? value : +value
     book[property] = value
 
     _saveBooks()

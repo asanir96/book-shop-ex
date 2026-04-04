@@ -241,20 +241,23 @@ img {
     box-shadow: inset -1px 1px 2px rgb(49, 49, 90);
 }
 
-.rating-label {
+.rating-chip {
     opacity: 0.5;
-    width: 2em;
     margin-inline-start: 1.5em;
-    border-radius: 5px;
-    border:1px solid #155724;
-
-    background-color: #d4edda; 
-    color: #155724;
-    /* background-color: rgb(81, 148, 81); */
-    /* outline: 1.5px solid #155724; */
-    outline-offset: -3px;
-
-    /* color:rgb(243, 223, 113); */
+    border-radius: 10px;
     text-align: center;
-    font-size: 0.7m;
+    font-size: 0.8em;
+    padding:0;
+}
+
+.high-rating-chip {
+    color: #155724;
+}
+
+.medium-rating-chip {
+    color: #856404;
+}
+
+.low-rating-chip {
+    color: #721c24;
 }
