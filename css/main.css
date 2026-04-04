@@ -48,12 +48,14 @@ button {
     border: 0;
 }
 
-button.disabled{
+button.disabled {
     opacity: 0.4;
 }
-button.disabled:hover{
+
+button.disabled:hover {
     opacity: 0.4;
 }
+
 button:hover {
     opacity: 0.7;
 }
@@ -81,11 +83,11 @@ button:hover {
 }
 
 .add-approve-btn,
-.add-cancel-btn{
+.add-cancel-btn {
     margin: auto auto;
 }
 
-.add-btn{
+.add-btn {
     margin: 5px auto;
 }
 
@@ -105,6 +107,11 @@ button:hover {
 
 .input-row {
     display: none;
+    border-top: 2px solid rgb(227, 223, 223);
+}
+
+.input-row td {
+    background-color: white;
 }
 
 input {
@@ -260,7 +267,7 @@ img {
     border-radius: 10px;
     text-align: center;
     font-size: 0.8em;
-    padding:0;
+    padding: 0;
 }
 
 .high-rating-chip {
