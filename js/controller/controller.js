@@ -168,9 +168,9 @@ function cancelAddRow() {
 function disableActions() {
     gIsEditMode = true
 
-    document.querySelectorAll('.read-btn').forEach(btn => btn.style.opacity = '0.4')
-    document.querySelectorAll('.update-btn').forEach(btn => btn.style.opacity = '0.4')
-    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.opacity = '0.4')
+    document.querySelectorAll('.read-btn').forEach(btn => btn.classList.add('disabled'))
+    document.querySelectorAll('.update-btn').forEach(btn => btn.classList.add('disabled'))
+    document.querySelectorAll('.delete-btn').forEach(btn => btn.classList.add('disabled'))
 
     const elFilterInput = document.querySelector(".filter input")
     elFilterInput.disabled = true;
@@ -181,9 +181,9 @@ function disableActions() {
 function enableActions() {
     gIsEditMode = false
 
-    document.querySelectorAll('.read-btn').forEach(btn => btn.style.opacity = '1')
-    document.querySelectorAll('.update-btn').forEach(btn => btn.style.opacity = '1')
-    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.opacity = '1')
+    document.querySelectorAll('.read-btn').forEach(btn => btn.classList.remove('disabled'))
+    document.querySelectorAll('.update-btn').forEach(btn => btn.classList.remove('disabled'))
+    document.querySelectorAll('.delete-btn').forEach(btn => btn.classList.remove('disabled'))
 
     const elFilterInput = document.querySelector(".filter input")
     elFilterInput.disabled = false;
