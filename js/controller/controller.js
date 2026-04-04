@@ -119,11 +119,12 @@ function onShowDetails(bookId) {
     const bookJSON = JSON.stringify(gCurrBook)
 
     const elDialog = document.querySelector('dialog')
-    const elDialogH2 = elDialog.querySelector('h2')
     const elDialogImg = elDialog.querySelector('img')
+    elDialogImg.src = gCurrBook.imgUrl
+    
+    const elDialogH2 = elDialog.querySelector('h2')
     const elDialogH3 = elDialog.querySelector('h3')
 
-    elDialogImg.src = gCurrBook.imgUrl
     elDialogH2.innerText = gCurrBook.title
     elDialogH3.innerText = `Price: ${gCurrBook.price} $`
 
