@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-td,
+
 th {
     border: 0.1em solid rgb(159, 157, 157);
 
@@ -19,7 +19,7 @@ td {
     align-content: center;
 }
 
-tr:nth-child(odd) {
+tr:nth-child(even) {
     background-color: rgb(227, 223, 223);
 }
 
@@ -70,10 +70,17 @@ button:hover {
 .add-cancel-btn,
 .add-btn {
     width: 3em;
-    margin: 5px auto;
-
     color: white;
     background-color: rgb(92, 90, 93);
+}
+
+.add-approve-btn,
+.add-cancel-btn{
+    margin: auto auto;
+}
+
+.add-btn{
+    margin: 5px auto;
 }
 
 .add-approve-btn:hover,
@@ -96,7 +103,7 @@ button:hover {
 
 input {
     width: 100%;
-    margin: auto auto;
+    margin-block: 3px;
 }
 
 .add-approve-btn,
