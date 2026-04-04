@@ -9,7 +9,8 @@ th {
 }
 
 .table-container {
-    width: 80vw;
+
+    width: fit-content;
     margin: auto auto;
 }
 
@@ -30,7 +31,7 @@ tr:nth-last-child(2) td {
 }
 
 table {
-    width: 100%;
+    /* width: 100%; */
     border-collapse: collapse;
     margin: auto auto;
 
@@ -43,9 +44,16 @@ tr td:nth-child(2) {
 .flex-wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 1em
 }
 
-.book-title{
+.flex-wrapper:first-child {
+    justify-content: flex-start;
+
+}
+
+.book-title {
     margin-inline-start: 0;
 }
 
@@ -168,10 +176,6 @@ img {
     text-align: center;
 
     transition: 0.2s;
-}
-
-.price-input {
-    width: 6em;
 }
 
 .rate-action-btn {

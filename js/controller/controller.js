@@ -28,12 +28,13 @@ function renderBooks() {
                             </dv>
                         </td>`
 
-        strHTML += `<td> ${book.price}</td>
+        strHTML += `<td> <div class="flex-wrapper"> ${book.price}</dv></td>
                 <td>
-                    <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
-                    <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
-                    <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
-
+                    <div class="flex-wrapper">
+                        <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
+                        <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
+                        <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
+                    </dv>
                 </td>
                 </tr> `
         return strHTML
