@@ -98,18 +98,12 @@ function onAddBook(titleInputSlctr, priceInputSlctr) {
         alert('All fields must be filled')
         return
     }
-    const elAddBtn = document.querySelector('.add-btn')
-    const elApproveBtn = document.querySelector('.add-approve-btn')
-    const elCancelBtn = document.querySelector('.add-cancel-btn')
-
-    elApproveBtn.style.display = 'none'
-    elCancelBtn.style.display = 'none'
-    elAddBtn.style.display = 'inline'
 
     addBook(inputTitle, inputPrice)
+    hideAddBookUI()
+    enableActions()
     showSuccessMsg('Book was added successfully!')
     renderBooks()
-    gIsEditMode = false
 }
 
 function onShowDetails(bookId) {
