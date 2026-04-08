@@ -270,3 +270,9 @@ function renderRatingChipStyle(elRateChip, idx) {
 
     }
 }
+
+function onChangeView(elIcon, otherIconSlctr) {
+    elIcon.classList.add('active')
+    const elOtherIcon = document.querySelector(otherIconSlctr)
+    elOtherIcon.classList.remove('active')
+}

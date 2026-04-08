@@ -296,3 +296,24 @@ img {
 .low-rating-chip {
     color: #721c24;
 }
+
+.view-select-container img {
+    width: 2em;
+    height: 2em;
+    opacity: 0.5;
+    transition: 0.5s
+}
+
+.view-select-container img.active{
+    opacity: 1;
+
+}
+
+.view-select-container {
+    display: flex;
+    background-color: #d5d5d5;
+    width: fit-content;
+    border-radius: 5px;
+    padding:3px;
+    gap: 3px;
+}

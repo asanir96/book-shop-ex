@@ -10,6 +10,10 @@
 
 <body onload="onInit()">
     <div class="table-container">
+        <div class="view-select-container">
+            <img class="active table-icon" src="img/table.svg" alt="" onclick="onChangeView(this,'.grid-icon')">
+            <img class="grid-icon" src="img/grid.svg" alt="" onclick="onChangeView(this,'.table-icon')">
+        </div>
         <form class="filter">
             <input type="text" name="" id="" placeholder="Filter by Book Title" oninput="onFilter(this)">
         </form>
