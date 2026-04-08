@@ -8,14 +8,10 @@ var gBooks
 _createBooks()
 
 function getBooks(bookTitle) {
-    const lowerBookTitle = bookTitle.trim().split('').map(char => char.toLowerCase()).join('')
+    const lowerBookTitle = bookTitle.trim().toLowerCase()
     if (!lowerBookTitle) return gBooks
 
-    console.log('lowerBookTitle', lowerBookTitle)
-    return gBooks.filter(book => book.title.split('')
-        .map(char => char.toLowerCase())
-        .join('')
-        .includes(lowerBookTitle))
+    return gBooks.filter(book => book.title.toLowerCase().includes(lowerBookTitle))
 }
 
 function removeBook(bookId) {
