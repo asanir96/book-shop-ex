@@ -12,7 +12,6 @@ function onInit() {
 
 function renderBooks() {
     gFilteredBooks = getBooks(gFilterBy)
-    console.log(gBooks)
 
     const elTBody = document.querySelector('tbody')
 
@@ -78,17 +77,12 @@ function onUpdateBook(bookId) {
 }
 
 function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
-    disableActions()
+    // disableActions()
 
     elAddBtn.style.display = 'none'
-    const elInputRow = document.querySelector(inputSlctr)
-    const elApproveBtn = document.querySelector(apprvBtnSlctr)
-    const elCancelBtn = document.querySelector(cnclBtnSlctr)
 
-    elInputRow.style.display = 'table-row'
-
-    elApproveBtn.style.display = 'inline'
-    elCancelBtn.style.display = 'inline'
+    const elAddBookForm = document.querySelector('.add-book-form')
+    elAddBookForm.showModal()
 }
 
 function onCancelAddBook() {
@@ -96,17 +90,12 @@ function onCancelAddBook() {
     enableActions()
 }
 
-function onAddBook(titleInputSlctr, priceInputSlctr) {
-    const inputPrice = +document.querySelector(priceInputSlctr).value
-    const inputTitle = document.querySelector(titleInputSlctr).value
+function onAddBook(elForm, ev) {
+    console.log(elForm)
+    const bookTitle = elForm.querySelector('.title-input').value
+    const bookPrice = +elForm.querySelector('.price-input').value
 
-    if (!inputPrice || !inputTitle) {
-        gIsEditMode = false
-        alert('All fields must be filled')
-        return
-    }
-
-    addBook(inputTitle, inputPrice)
+    addBook(bookTitle, bookPrice)
     hideAddBookUI()
     enableActions()
     showSuccessMsg('Book was added successfully!')
@@ -154,16 +143,14 @@ function showSuccessMsg(msg) {
 }
 
 function hideAddBookUI() {
-    const elInputRow = document.querySelector('.input-row')
+    const elAddBookForm = document.querySelector('.add-book-form')
     const elAddBtn = document.querySelector('.add-btn')
-    const elApproveBtn = document.querySelector('.add-approve-btn')
-    const elCancelBtn = document.querySelector('.add-cancel-btn')
 
-    elInputRow.style.display = 'none'
+    elAddBookForm.querySelector('.title-input').value = ''
+    elAddBookForm.querySelector('.price-input').value = ''
 
-    elApproveBtn.style.display = 'none'
-    elCancelBtn.style.display = 'none'
-    elAddBtn.style.display = 'inline'
+    elAddBookForm.close()
+    elAddBtn.style.display = 'initial'
 }
 
 function disableActions() {
@@ -239,7 +226,6 @@ function onRateChange(changeDirection, rateNumContainerSlctr, ev) {
 function onRatingHandler(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
     const elRatingNumContainer = document.querySelector('.rate-numbers-container')
 
-    console.log(elRatingNumContainer.style.display)
     if (elRatingNumContainer.style.display !== 'none') onShowRatingBtn(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev)
     else confirmRating()
 }
@@ -256,8 +242,7 @@ function renderRatingChipStyle(elRateChip, idx) {
     const book = gFilteredBooks[idx]
 
     var strHTML = STAR.repeat(book.rating)
-    console.log(book)
-    console.log(elRateChip)
+
 
     elRateChip.innerHTML = strHTML
 

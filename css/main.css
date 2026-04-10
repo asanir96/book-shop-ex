@@ -139,9 +139,7 @@ input {
 }
 
 .add-approve-btn,
-.add-cancel-btn {
-    display: none;
-}
+.add-cancel-btn {}
 
 dialog form {
     display: flex;

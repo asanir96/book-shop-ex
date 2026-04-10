@@ -30,9 +30,21 @@
         </table>
         <button class="add-btn"
             onclick="onRevealInputRow('.input-row','.add-approve-btn','.add-cancel-btn',this)">+</button>
-        <button class="add-approve-btn" onclick="onAddBook('.title-input','.price-input')">✓</button>
-        <button class="add-cancel-btn" onclick="onCancelAddBook()">X</button>
     </div>
+        <dialog class="add-book-form">
+        <form method="dialog" onsubmit="onAddBook(this,event)">
+            <label for="book-title">Enter a book title:</label>
+            <input class="title-input" type="text" id="book-title" required/>
+            
+            <label for="book-price">Enter the book price:</label>
+            <input class="price-input" type="number" id="book-price" required/>
+            <div class="btn-container">
+                <button type="submit" class="add-approve-btn">✓</button>
+                <button type="button" class="add-cancel-btn" onclick="onCancelAddBook()">X</button>
+
+            </div>
+        </form>
+    </dialog>
     <dialog class="details-modal">
         <form method="dialog">
             <h2></h2>
