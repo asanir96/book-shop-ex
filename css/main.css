@@ -10,7 +10,7 @@ th {
 
 .content-container {
     min-width: 50%;
-width: fit-content;
+    width: fit-content;
     margin: auto auto;
 }
 
@@ -22,7 +22,7 @@ td {
 }
 
 tr:nth-child(even) {
-    background-color: rgb(227, 223, 223);
+    background-color: rgb(244, 243, 243);
 }
 
 tr:last-child td {
@@ -275,15 +275,15 @@ img {
 }
 
 .rating-chip {
-    opacity: 0.5;
     margin-inline-start: 1.5em;
+    color: rgb(248, 211, 1);
     border-radius: 10px;
     text-align: center;
     font-size: 0.8em;
     padding: 0;
 }
 
-.high-rating-chip {
+/* .high-rating-chip {
     color: #155724;
 }
 
@@ -293,7 +293,7 @@ img {
 
 .low-rating-chip {
     color: #721c24;
-}
+} */
 
 .view-select-container img {
     width: 2em;
@@ -302,7 +302,7 @@ img {
     transition: 0.5s
 }
 
-.view-select-container img.active{
+.view-select-container img.active {
     opacity: 1;
 
 }
@@ -312,7 +312,7 @@ img {
     background-color: #d5d5d5;
     width: fit-content;
     border-radius: 5px;
-    padding:3px;
+    padding: 3px;
     gap: 3px;
 }
 
@@ -334,8 +334,8 @@ img {
 }
 
 .table-container img {
-    background-color: white;
-    padding:0.2em;
+    /* background-color: white; */
+    padding: 0.2em;
     width: 3em;
     height: 5em;
 }
@@ -343,7 +343,7 @@ img {
 .book-card {
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
+    background-color: rgb(244, 243, 243);
     align-items: center;
     gap: 5px;
     padding: 10px;
@@ -355,7 +355,12 @@ img {
     margin: 0;
 }
 
-dialog::backdrop{
+dialog::backdrop {
     opacity: 0.8;
     background-color: white;
+}
+
+.list-view img,
+.list-view button{
+    display: none;
 }
