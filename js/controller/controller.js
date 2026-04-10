@@ -113,15 +113,21 @@ function renderBookList(elTableContainer) {
     elTableContainer.classList.add('list-view')
     tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
-        strHTML += `<div class="book-card">
-                        <img  class="expand-card-icon" src="img/arrow-right.svg" alt="" onclick="expandCard()">
-
-                        <h2>${book.title}</h2>
-                        <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
-                        <img class= "book-cover" src="${book.imgUrl}" alt="">
-                        <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
-                        <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
-                        <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
+        strHTML += `<div class="book-card" id="book-${book.id}">
+                        <div class="card-header">
+                            <img  class="card-icon expand-card-icon" src="img/arrow-right.svg" alt="" onclick="onExpandCard(this,'#book-${book.id}','.collapse-card-icon')">
+                            <img  class="card-icon collapse-card-icon" src="img/arrow-return-right.svg" alt="" onclick="onCollapseCard(this,'#book-${book.id}','.expand-card-icon')">
+                            <h2>${book.title}</h2>
+                            <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
+                        </div>
+                        
+                        <div class="card-data">
+                            <img class= "book-cover" src="${book.imgUrl}" alt="">
+                            <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
+                            <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
+                            <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
+                        </div>
+                        
                     </div>`
         return strHTML
     }
@@ -360,6 +366,22 @@ function onChangeView(selectedView) {
     renderBooks()
 }
 
-function expandCard(){
-    console.log('hi')
+function onExpandCard(elIcon, bookIdSlctr, otherIconSlctr) {
+    elIcon.style.display = 'none'
+    
+    const elBookCard = document.querySelector(bookIdSlctr)
+    const elBookCardData = elBookCard.querySelector(`.card-data`)
+    const elOtherIcon = elBookCard.querySelector(otherIconSlctr)
+    elOtherIcon.style.display = 'inline'
+    elBookCardData.classList.add('expanded')
+}
+
+function onCollapseCard(elIcon, bookIdSlctr, otherIconSlctr) {
+    elIcon.style.display = 'none'
+    
+    const elBookCard = document.querySelector(bookIdSlctr)
+    const elBookCardData = elBookCard.querySelector(`.card-data`)
+    const elOtherIcon = elBookCard.querySelector(otherIconSlctr)
+    elOtherIcon.style.display = 'inline'
+    elBookCardData.classList.remove('expanded')
 }

@@ -283,17 +283,6 @@ img {
     padding: 0;
 }
 
-/* .high-rating-chip {
-    color: #155724;
-}
-
-.medium-rating-chip {
-    color: #856404;
-}
-
-.low-rating-chip {
-    color: #721c24;
-} */
 
 .view-select-container img {
     width: 2em;
@@ -347,6 +336,7 @@ img {
     align-items: center;
     gap: 5px;
     padding: 10px;
+    box-shadow: 3px 3px 3px black;
 
 }
 
@@ -360,21 +350,101 @@ dialog::backdrop {
     background-color: white;
 }
 
-.list-view .book-cover,
+/* .list-view .book-cover,
 .list-view button {
     display: none;
-}
+} */
 
 .list-view .book-card {
-    margin-block: 10px;
-    flex-direction: row;
-    transition: 0.2s
+    background-color: white;
+    box-shadow: 0 0 0;
+    /* margin-block: 10px; */
+    flex-direction: column;
+    transition: 0.2s;
+    align-items: stretch;
+    gap: 0;
+
 }
 
-.expand-card-icon {
+.book-card .card-header {
+    flex-basis: 100%;
+    background-color: rgb(245, 245, 245);
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+
+
+    box-shadow: 3px 3px 3px rgb(155, 154, 154);
+
+}
+
+.card-icon {
     display: inline;
     width: 1em;
     height: 1em;
-    margin-inline-start:0;
+    margin-inline-start: 0;
     margin-inline-end: 1px;
+}
+
+.collapse-card-icon{
+    display:none;
+}
+
+.card-data {
+    display: none;
+    background-color: rgb(255, 255, 255);
+    justify-items: flex-start;
+    align-items: center;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    padding: 5px;
+}
+
+.card-data.expanded {
+    display: flex;
+    opacity: 1;
+    width: 100%;
+    height: fit-content;
+    animation: expand 0.2s ease;
+    box-shadow: inset 0 3px 3px 2px rgb(155, 154, 154);
+    ;
+}
+
+@keyframes expand {
+    0% {
+        opacity: 0;
+        /* width: 0; */
+        transform: translateY(-20px);
+        /* height: 0; */
+    }
+
+    100% {
+        opacity: 1;
+        /* width: 100%; */
+        /* height: fit-content; */
+        transform: translateY(0);
+
+    }
+}
+
+@keyframes collapse {
+
+
+    0% {
+        opacity: 1;
+        /* width: 100%; */
+        /* height: fit-content; */
+        transform: translateY(0);
+
+    }
+
+    1000% {
+        opacity: 0;
+        /* width: 0; */
+        transform: translateY(-20px);
+        /* height: 0; */
+    }
 }
