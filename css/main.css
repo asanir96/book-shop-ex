@@ -333,7 +333,7 @@ img {
 
 }
 
-.table-container img {
+.table-container .book-cover {
     /* background-color: white; */
     padding: 0.2em;
     width: 3em;
@@ -360,7 +360,21 @@ dialog::backdrop {
     background-color: white;
 }
 
-.list-view img,
-.list-view button{
+.list-view .book-cover,
+.list-view button {
     display: none;
+}
+
+.list-view .book-card {
+    margin-block: 10px;
+    flex-direction: row;
+    transition: 0.2s
+}
+
+.expand-card-icon {
+    display: inline;
+    width: 1em;
+    height: 1em;
+    margin-inline-start:0;
+    margin-inline-end: 1px;
 }

@@ -16,12 +16,24 @@ function renderBooks() {
     gFilteredBooks = getBooks(gFilterBy)
     const elTableContainer = document.querySelector('.table-container')
 
-    if (gView === 'table') renderBookTable(elTableContainer)
-    else renderGridBooks(elTableContainer)
+    switch (gView) {
+        case 'table':
+            renderBookTable(elTableContainer)
+            break;
+        case 'grid':
+            renderGridBooks(elTableContainer)
+            break;
+        case 'list':
+            renderBookList(elTableContainer)
+            break;
+    }
+    // if (gView === 'table') renderBookTable(elTableContainer)
+    // else renderGridBooks(elTableContainer)
 }
 
 function renderBookTable(elTableContainer) {
     elTableContainer.classList.remove('grid-view')
+    elTableContainer.classList.remove('list-view')
 
     var tableStrHTML = `            <table>
                 <thead>
@@ -64,6 +76,9 @@ function renderBookTable(elTableContainer) {
 }
 
 function renderGridBooks(elTableContainer) {
+    elTableContainer.classList.remove('table-view')
+    elTableContainer.classList.remove('list-view')
+
     var tableStrHTML = ''
     elTableContainer.classList.add('grid-view')
     tableStrHTML += gFilteredBooks.map(book => {
@@ -71,7 +86,7 @@ function renderGridBooks(elTableContainer) {
         strHTML += `<div class="book-card">
                         <h2>${book.title}</h2>
                         <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
-                        <img src="${book.imgUrl}" alt="">
+                        <img class = "book-cover" src="${book.imgUrl}" alt="">
                         <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
                         <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
                         <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
@@ -90,15 +105,20 @@ function renderGridBooks(elTableContainer) {
 
 }
 
-function renderBookList() {
+function renderBookList(elTableContainer) {
+    elTableContainer.classList.remove('table-view')
+    elTableContainer.classList.remove('grid-view')
+
     var tableStrHTML = ''
     elTableContainer.classList.add('list-view')
     tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
         strHTML += `<div class="book-card">
+                        <img  class="expand-card-icon" src="img/arrow-right.svg" alt="" onclick="expandCard()">
+
                         <h2>${book.title}</h2>
                         <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
-                        <img src="${book.imgUrl}" alt="">
+                        <img class= "book-cover" src="${book.imgUrl}" alt="">
                         <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
                         <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
                         <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
@@ -322,7 +342,7 @@ function renderRatingChipStyle(elRateChip, idx) {
     }
 }
 
-function onChangeView(elIcon, otherView, selectedView) {
+function onChangeView(selectedView) {
     if (gIsEditMode) return
 
     gView = selectedView
@@ -333,8 +353,13 @@ function onChangeView(elIcon, otherView, selectedView) {
         if (!elIcon.classList.contains(`${selectedView}-icon`)) elIcon.classList.remove('active')
         else elIcon.classList.add('active')
     })
+
     console.log('elIcons', elIcons)
     // const elOtherIcon = document.querySelector(`.${otherView}-icon`)
     // elOtherIcon.classList.remove('active')
     renderBooks()
+}
+
+function expandCard(){
+    console.log('hi')
 }
