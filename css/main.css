@@ -8,9 +8,9 @@ th {
 
 }
 
-.table-container {
-
-    width: fit-content;
+.content-container {
+    min-width: 50%;
+width: fit-content;
     margin: auto auto;
 }
 
@@ -25,13 +25,13 @@ tr:nth-child(even) {
     background-color: rgb(227, 223, 223);
 }
 
-tr:nth-last-child(2) td {
+tr:last-child td {
     border-bottom: 0.1em solid rgb(159, 157, 157);
 
 }
 
 table {
-    /* width: 100%; */
+    width: 100%;
     border-collapse: collapse;
     margin: auto auto;
 
@@ -314,4 +314,48 @@ img {
     border-radius: 5px;
     padding:3px;
     gap: 3px;
+}
+
+
+.book-card h2 {
+    font-size: 10px;
+    margin-inline-start: 0;
+}
+
+.table-container {
+    width: 100%;
+}
+
+.table-container.grid-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+
+}
+
+.table-container img {
+    background-color: white;
+    padding:0.2em;
+    width: 3em;
+    height: 5em;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+
+}
+
+
+.table-container.grid-view h2 {
+    margin: 0;
+}
+
+dialog::backdrop{
+    opacity: 0.8;
+    background-color: white;
 }

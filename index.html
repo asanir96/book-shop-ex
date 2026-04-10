@@ -9,35 +9,29 @@
 </head>
 
 <body onload="onInit()">
-    <div class="table-container">
+    <div class="content-container">
         <div class="view-select-container">
-            <img class="active table-icon" src="img/table.svg" alt="" onclick="onChangeView(this,'.grid-icon')">
-            <img class="grid-icon" src="img/grid.svg" alt="" onclick="onChangeView(this,'.table-icon')">
+            <img class="icon table-icon active" src="img/table.svg" alt="" onclick="onChangeView(this,'grid','table')">
+            <img class="grid-icon" src="img/grid.svg" alt="" onclick="onChangeView(this,'table','grid')">
         </div>
+
         <form class="filter">
             <input type="text" name="" id="" placeholder="Filter by Book Title" oninput="onFilter(this)">
         </form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+
+        <div class="table-container">
+        </div>
+        
         <button class="add-btn"
             onclick="onRevealInputRow('.input-row','.add-approve-btn','.add-cancel-btn',this)">+</button>
     </div>
-        <dialog class="add-book-form">
+    <dialog class="add-book-form">
         <form method="dialog" onsubmit="onAddBook(this,event)">
             <label for="book-title">Enter a book title:</label>
-            <input class="title-input" type="text" id="book-title" required/>
-            
+            <input class="title-input" type="text" id="book-title" required />
+
             <label for="book-price">Enter the book price:</label>
-            <input class="price-input" type="number" id="book-price" required/>
+            <input class="price-input" type="number" id="book-price" required />
             <div class="btn-container">
                 <button type="submit" class="add-approve-btn">✓</button>
                 <button type="button" class="add-cancel-btn" onclick="onCancelAddBook()">X</button>

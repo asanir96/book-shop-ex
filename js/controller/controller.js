@@ -5,6 +5,8 @@ var gIsEditMode = false
 var gCurrBook
 var gFilteredBooks
 
+var gView = 'table'
+
 const STAR = '&#9733;'
 function onInit() {
     renderBooks()
@@ -12,10 +14,28 @@ function onInit() {
 
 function renderBooks() {
     gFilteredBooks = getBooks(gFilterBy)
+    const elTableContainer = document.querySelector('.table-container')
 
-    const elTBody = document.querySelector('tbody')
+    if (gView === 'table') renderBookTable(elTableContainer)
+    else renderGridBooks(elTableContainer)
 
-    var tableStrHTML = ''
+
+    // elTableContainer.innerHTML = tableStrHTML
+    // const elRatingChips = elTableContainer.querySelectorAll('.rating-chip')
+    // elRatingChips.forEach((elRatingChip, idx) => renderRatingChipStyle(elRatingChip, idx))
+}
+
+function renderBookTable(elTableContainer) {
+    elTableContainer.classList.remove('grid-view')
+
+    var tableStrHTML = `            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>`
 
     tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
@@ -40,16 +60,46 @@ function renderBooks() {
     }
     ).join('')
 
-    tableStrHTML += ` <tr class="input-row" >           
-            <td> <input class="title-input" type="text"></td>
-            <td><input class="price-input" type="number"></td>
-            <td></td> </tr> `
+    tableStrHTML += `</table>
+`
 
-    elTBody.innerHTML = tableStrHTML
-    const elRatingChips = elTBody.querySelectorAll('.rating-chip')
+    elTableContainer.innerHTML = tableStrHTML
+    const elRatingChips = elTableContainer.querySelectorAll('.rating-chip')
+    console.log('elRatingChips', elRatingChips)
     elRatingChips.forEach((elRatingChip, idx) => renderRatingChipStyle(elRatingChip, idx))
 }
 
+function renderGridBooks(elTableContainer) {
+    var tableStrHTML = ''
+    elTableContainer.classList.add('grid-view')
+    tableStrHTML += gFilteredBooks.map(book => {
+        var strHTML = ''
+        strHTML += `<div class="book-card">
+                        <h2>${book.title}</h2>
+                        <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
+                        <img src="${book.imgUrl}" alt="">
+                        <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
+                        <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
+                        <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
+                    </div>`
+        return strHTML
+    }
+    ).join('')
+
+    // tableStrHTML += ` <tr class="input-row" >           
+    //         <td> <input class="title-input" type="text"></td>
+    //         <td><input class="price-input" type="number"></td>
+    //         <td></td> </tr> `
+
+    elTableContainer.innerHTML = tableStrHTML
+    const elRatingChips = elTableContainer.querySelectorAll('.rating-chip')
+    elRatingChips.forEach((elRatingChip, idx) => {
+        renderRatingChipStyle(elRatingChip, idx)
+        elRatingChip.style.margin = 0
+    }
+    )
+
+}
 
 function onRemoveBook(bookId) {
     if (gIsEditMode) return
@@ -256,8 +306,12 @@ function renderRatingChipStyle(elRateChip, idx) {
     }
 }
 
-function onChangeView(elIcon, otherIconSlctr) {
+function onChangeView(elIcon, otherView, selectedView) {
+    if (gIsEditMode) return
+
+    gView = selectedView
     elIcon.classList.add('active')
-    const elOtherIcon = document.querySelector(otherIconSlctr)
+    const elOtherIcon = document.querySelector(`.${otherView}-icon`)
     elOtherIcon.classList.remove('active')
+    renderBooks()
 }
