@@ -119,17 +119,17 @@ function onShowDetails(bookId) {
     gCurrBook = getBookById(bookId)
     const bookJSON = JSON.stringify(gCurrBook)
 
-    const elDialog = document.querySelector('dialog')
-    const elDialogImg = elDialog.querySelector('img')
+    const elDetailsDialog = document.querySelector('.details-modal')
+    const elDialogImg = elDetailsDialog.querySelector('img')
     elDialogImg.src = gCurrBook.imgUrl
 
-    const elDialogH2 = elDialog.querySelector('h2')
-    const elDialogH3 = elDialog.querySelector('h3')
+    const elDialogH2 = elDetailsDialog.querySelector('h2')
+    const elDialogH3 = elDetailsDialog.querySelector('h3')
 
     elDialogH2.innerText = gCurrBook.title
     elDialogH3.innerText = `Price: ${gCurrBook.price} $`
 
-    elDialog.showModal()
+    elDetailsDialog.showModal()
 }
 
 function onFilter(elInput) {

@@ -3,6 +3,7 @@ const STORAGE_KEY = 'books'
 const HARRY_POTTER_IMG_URL = 'img/Harry_Potter_and_the_Order_of_the_Phoenix.jpg'
 const THE_HOBBIT_IMG_URL = 'img/download.jpeg'
 const THE_MARTIAN_IMG_URL = 'img/810W+zAp2DL._AC_UF1000,1000_QL80_.jpg'
+const PLACEHOLDER = 'img/book.svg'
 
 var gBooks
 _createBooks()
@@ -30,8 +31,8 @@ function updateBook(bookId, property, value) {
 }
 
 
-function addBook(title, price, imgUrl) {
-    gBooks.push({ id: makeid(), title, price, imgUrl })
+function addBook(title, price, imgUrl, rating) {
+    gBooks.push(_createBook(title,price,imgUrl,rating))
 
     _saveBooks()
 }
@@ -46,20 +47,23 @@ function _createBooks() {
 
     gBooks = [
         _createBook('Harry Potter and the Order of Phoenix', 160, HARRY_POTTER_IMG_URL, 0),
-        _createBook('The Hobbit', 120, THE_HOBBIT_IMG_URL, 0),
-        _createBook('The Martian', 80, THE_MARTIAN_IMG_URL, 0),
+        _createBook('The Hobbit', 120, THE_HOBBIT_IMG_URL, 3),
+        _createBook('The Martian', 80, THE_MARTIAN_IMG_URL, 5),
     ]
     _saveBooks()
 }
 
 function _createBook(title, price, imgUrl, rating) {
-    return {
+    const book = {
         id: makeid(),
         title,
         price,
-        imgUrl,
         rating
     }
+
+    if (imgUrl) book.imgUrl = imgUrl
+    else book.imgUrl = PLACEHOLDER
+    return book
 }
 
 function _saveBooks() {
