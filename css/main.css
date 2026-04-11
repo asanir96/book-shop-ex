@@ -2,64 +2,10 @@
     box-sizing: border-box;
 }
 
-
-th {
-    border: 0.1em solid rgb(159, 157, 157);
-
-}
-
 .content-container {
     min-width: 50%;
     width: fit-content;
     margin: auto auto;
-}
-
-td {
-    height: 2em;
-    padding-inline: 0.4em;
-    padding-block: 0.2em;
-    align-content: center;
-}
-
-tr:nth-child(even) {
-    background-color: rgb(244, 243, 243);
-}
-
-tr:last-child td {
-    border-bottom: 0.1em solid rgb(159, 157, 157);
-
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: auto auto;
-
-}
-
-tr td:nth-child(2) {
-    width: 6em;
-}
-
-.flex-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1em
-}
-
-.flex-wrapper:first-child {
-    justify-content: flex-start;
-
-}
-
-.book-title {
-    margin-inline-start: 0;
-}
-
-th {
-    background-color: lightgray;
-    padding: 0.5em;
 }
 
 button {
@@ -138,8 +84,10 @@ input {
     margin-block: 3px;
 }
 
-.add-approve-btn,
-.add-cancel-btn {}
+.details-modal {
+    width: 40vw;
+    height: 60vw;
+}
 
 dialog form {
     display: flex;
@@ -149,8 +97,8 @@ dialog form {
 
 img {
     margin: auto auto;
-    width: 30vw;
-    height: 40vw;
+    width: 20vw;
+    height: 30vw;
 }
 
 .filter {
@@ -176,41 +124,66 @@ img {
     transition: 0.2s;
 }
 
-.rate-action-btn {
-    margin-block: 5px;
+
+/* table view */
+
+th {
+    border: 0.1em solid rgb(159, 157, 157);
+
 }
 
-.rate-minus-btn,
-.rate-plus-btn,
-.rate-numbers-container {
-    display: none;
-    align-items: center;
+td {
+    height: 2em;
+    padding-inline: 0.4em;
+    padding-block: 0.2em;
     align-content: center;
-    justify-content: center;
-
-    width: 35px;
-    height: 35px;
-    padding: 0.2em;
-    text-align: center;
-    margin-inline: 0.1em;
-    background-color: rgb(192, 192, 245);
-    border: solid 3px rgb(114, 114, 208);
-    border-radius: 5px;
-    font-weight: 200;
 }
 
-.rate-minus-btn:hover,
-.rate-plus-btn:hover {
-    opacity: 0.7;
+tr:nth-child(even) {
+    background-color: rgb(244, 243, 243);
 }
 
-.rate-minus-btn:active,
-.rate-plus-btn:active {
-    box-shadow: inset -1px 1px 2px rgb(49, 49, 90);
+tr:last-child td {
+    border-bottom: 0.1em solid rgb(159, 157, 157);
+
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto auto;
+
+}
+
+tr td:nth-child(2) {
+    width: 6em;
+}
+
+.flex-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em
+}
+
+.flex-wrapper:first-child {
+    justify-content: flex-start;
+
+}
+
+.book-title {
+    margin-inline-start: 0;
+}
+
+th {
+    background-color: lightgray;
+    padding: 0.5em;
+}
+
+
+
 
 .rate-numbers-container {
-    color: rgb(106, 97, 47);
     width: 2em;
     font-size: 1.5em;
     line-height: 100%;
@@ -242,37 +215,6 @@ img {
     margin-top: 10px;
 }
 
-.minus-sign,
-.plus-sign-horizontal {
-    position: absolute;
-    background-color: rgb(243, 223, 113);
-    width: 70%;
-    height: 20%;
-    /* z-index: 2; */
-}
-
-.plus-sign-vertical {
-    position: absolute;
-    background-color: rgb(243, 223, 113);
-    width: 20%;
-    height: 70%;
-}
-
-.rate-action-btn {
-    background-color: rgb(114, 114, 208);
-    color: rgb(243, 223, 113);
-    outline: 2px solid rgb(243, 223, 113);
-    outline-offset: -3px;
-    padding: 6px
-}
-
-.rate-action-btn:hover {
-    opacity: 0.7;
-}
-
-.rate-action-btn:active {
-    box-shadow: inset -1px 1px 2px rgb(49, 49, 90);
-}
 
 .rating-chip {
     margin-inline-start: 1.5em;
@@ -283,6 +225,18 @@ img {
     padding: 0;
 }
 
+.star.active {
+    color: rgb(248, 211, 1);
+    opacity: 0.5;
+
+}
+
+.star.selected {
+    color: rgb(248, 211, 1);
+    opacity: 1;
+
+
+}
 
 .view-select-container img {
     width: 2em;
@@ -335,11 +289,16 @@ img {
     background-color: rgb(244, 243, 243);
     align-items: center;
     gap: 5px;
-    padding: 10px;
-    box-shadow: 3px 3px 3px black;
+    margin-block: 10px;
+    box-shadow: 3px 3px 3px rgb(167, 166, 166);
 
 }
 
+.grid-view .book-card {
+    padding: 10px;
+    border: 2px solid lightgrey;
+
+}
 
 .table-container.grid-view h2 {
     margin: 0;
@@ -349,11 +308,6 @@ dialog::backdrop {
     opacity: 0.8;
     background-color: white;
 }
-
-/* .list-view .book-cover,
-.list-view button {
-    display: none;
-} */
 
 .list-view .book-card {
     background-color: white;
@@ -373,8 +327,9 @@ dialog::backdrop {
     display: flex;
     flex-direction: row;
     padding: 5px;
+    align-items: center;
 
-
+    border: 2px solid lightgrey;
     box-shadow: 3px 3px 3px rgb(155, 154, 154);
 
 }
@@ -387,8 +342,8 @@ dialog::backdrop {
     margin-inline-end: 1px;
 }
 
-.collapse-card-icon{
-    display:none;
+.collapse-card-icon {
+    display: none;
 }
 
 .card-data {
@@ -405,11 +360,15 @@ dialog::backdrop {
 
 .card-data.expanded {
     display: flex;
+    flex-direction: column;
     opacity: 1;
-    width: 100%;
+    width: 99%;
+    margin-inline: auto;
     height: fit-content;
     animation: expand 0.2s ease;
-    box-shadow: inset 0 3px 3px 2px rgb(155, 154, 154);
+    border: 2px solid lightgrey;
+    padding: 0;
+    /* box-shadow: inset 0 3px 3px 2px rgb(155, 154, 154); */
     ;
 }
 
@@ -447,4 +406,85 @@ dialog::backdrop {
         transform: translateY(-20px);
         /* height: 0; */
     }
+}
+
+.book-information {
+    display: grid;
+    grid-template-columns: 1fr 3fr 5fr;
+    grid-template-rows: 2fr 1fr;
+    grid-template-areas:
+        "cover rate"
+        "cover price";
+
+    width: 100%;
+    height: 6em;
+
+    gap: 10px;
+    padding: 10px;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.book-information .change-rating-btn {
+    grid-area: btn;
+}
+
+.book-information .book-cover {
+    margin: 0;
+    grid-area: cover;
+}
+
+.actions {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    border-top: 2px solid lightgrey;
+    padding: 5px;
+    gap: 10px;
+    background-color: rgb(245, 245, 245);
+
+
+}
+
+.card-data.expanded .rate {
+    display: flex;
+    flex-direction: column;
+    opacity: 0.6;
+
+    position: relative;
+    top: 10px;
+    margin-block-end: 5px;
+    grid-area: rate;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.card-data.expanded .rate-plus-btn {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+}
+
+.card-data.expanded .book-price {
+    grid-area: price;
+    display: flex;
+    justify-content: flex-start;
+    align-self: end;
+
+}
+
+.card-data.expanded .rate-numbers-container {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    font-size: 100%;
+}
+
+.card-data.expanded .rate-minus-btn {
+    display: block;
+
+    width: 3rem;
+    height: 3rem;
 }

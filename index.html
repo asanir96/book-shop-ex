@@ -22,7 +22,7 @@
 
         <div class="table-container">
         </div>
-        
+
         <button class="add-btn"
             onclick="onRevealInputRow('.input-row','.add-approve-btn','.add-cancel-btn',this)">+</button>
     </div>
@@ -45,30 +45,21 @@
             <h2></h2>
             <img src="" alt="">
             <h3></h3>
-            <div class="rate-container">
-                <button class="rate-plus-btn" onclick="onRateChange(1,'.rate-numbers-container',event)">
-                    <div class="rate-plus-inner">
-                        <div class="plus-sign-horizontal">
-
-                        </div>
-                        <div class="plus-sign-vertical">
-
-                        </div>
-                    </div>
-                </button>
-                <div class="rate-numbers-container">0 </div>
-                <button class="rate-minus-btn" onclick="onRateChange(-1,'.rate-numbers-container',event)">
-                    <div class="rate-plus-inner">
-
-                        <div class="minus-sign">
-
-                        </div>
-                    </div>
-                </button>
-            </div>
-            <button class="rate-action-btn"
-                onclick="onShowRatingBtn(this,'.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)">Rate
-                this Book</button>
+            <div class="rate-container"></div>
+                <div>
+                    <span class="star star-1" onmouseover="onRatingHover(undefined,1)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-2" onmouseover="onRatingHover(undefined,2)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-3" onmouseover="onRatingHover(undefined,3)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-4" onmouseover="onRatingHover(undefined,4)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-5" onmouseover="onRatingHover(undefined,5)"
+                        onclick="onLockRating()">&#9733;</span>
+                </div>
+                <button class="change-rating-btn"
+                    onclick=" onRateChange()">Change Rating</button>
             <button class="modal-close-btn"
                 onclick="hideRatingAction('.rate-action-btn','.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)">x</button>
         </form>

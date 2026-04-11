@@ -4,10 +4,11 @@ var gSuccessMsgTimeout
 var gIsEditMode = false
 var gCurrBook
 var gFilteredBooks
-
+var gRating
 var gView = 'table'
 
 const STAR = '&#9733;'
+const STAR_ADD_ICON = '&oplus;'
 function onInit() {
     renderBooks()
 }
@@ -27,8 +28,6 @@ function renderBooks() {
             renderBookList(elTableContainer)
             break;
     }
-    // if (gView === 'table') renderBookTable(elTableContainer)
-    // else renderGridBooks(elTableContainer)
 }
 
 function renderBookTable(elTableContainer) {
@@ -113,22 +112,45 @@ function renderBookList(elTableContainer) {
     elTableContainer.classList.add('list-view')
     tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
-        strHTML += `<div class="book-card" id="book-${book.id}">
-                        <div class="card-header">
-                            <img  class="card-icon expand-card-icon" src="img/arrow-right.svg" alt="" onclick="onExpandCard(this,'#book-${book.id}','.collapse-card-icon')">
-                            <img  class="card-icon collapse-card-icon" src="img/arrow-return-right.svg" alt="" onclick="onCollapseCard(this,'#book-${book.id}','.expand-card-icon')">
-                            <h2>${book.title}</h2>
-                            <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
-                        </div>
-                        
-                        <div class="card-data">
-                            <img class= "book-cover" src="${book.imgUrl}" alt="">
-                            <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
-                            <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
-                            <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
-                        </div>
-                        
-                    </div>`
+        strHTML += `
+<div class="book-card" id="book-${book.id}">
+    <div class="card-header">
+        <img class="card-icon expand-card-icon" src="img/caret-right-fill.svg" alt=""
+            onclick="onExpandCard(this,'${book.id}','.collapse-card-icon')">
+        <img class="card-icon collapse-card-icon" src="img/caret-down-fill.svg" alt=""
+            onclick="onCollapseCard(this,'${book.id}','.expand-card-icon')">
+        <h2>${book.title}</h2>
+        <div class="rating-chip">${book.rating ? book.rating : ''} </div>
+    </div>
+
+    <div class="card-data">
+        <div class="book-information">
+            <img class="book-cover" src="${book.imgUrl}" alt="">
+            <div class="book-price">Price: $${book.price} </div>
+            <div class="rate">
+                <div>
+                    <span class="star star-1" onmouseover="onRatingHover('${book.id}',1)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-2" onmouseover="onRatingHover('${book.id}',2)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-3" onmouseover="onRatingHover('${book.id}',3)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-4" onmouseover="onRatingHover('${book.id}',4)"
+                        onclick="onLockRating()">&#9733;</span>
+                    <span class="star star-5" onmouseover="onRatingHover('${book.id}',5)"
+                        onclick="onLockRating()">&#9733;</span>
+                </div>
+                <button class="change-rating-btn"
+                    onclick=" onRateChange()">Change Rating</button>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="read-btn" onclick="onShowDetails('${book.id}')">Read</button>
+            <button class="update-btn" onclick="onUpdateBook('${book.id}')">Update</button>
+            <button class="delete-btn" onclick="onRemoveBook('${book.id}')">Delete</button>
+        </div>
+
+    </div>`
         return strHTML
     }
     ).join('')
@@ -305,13 +327,17 @@ function hideRatingAction(rateActionBtnSlctr, plsBtnSlctr, minusBtnSlctr, rateNu
 }
 
 function onRateChange(changeDirection, rateNumContainerSlctr, ev) {
-    ev.preventDefault()
-    const elRatingNumContainer = document.querySelector(rateNumContainerSlctr)
+    // ev.preventDefault()
 
-    var currRating = +elRatingNumContainer.textContent
-    if (currRating + changeDirection < 0 || currRating + changeDirection > 5) return
+    // const elRatingNumContainer = document.querySelector(rateNumContainerSlctr)
 
-    elRatingNumContainer.innerText = currRating + changeDirection
+    // var currRating = +elRatingNumContainer.textContent
+    // if (currRating + changeDirection < 0 || currRating + changeDirection > 5) return
+
+    // elRatingNumContainer.innerText = currRating + changeDirection
+
+    updateBook(gCurrBook.id, 'rating', gRating)
+    renderBooks()
 
 }
 
@@ -366,22 +392,60 @@ function onChangeView(selectedView) {
     renderBooks()
 }
 
-function onExpandCard(elIcon, bookIdSlctr, otherIconSlctr) {
+function onExpandCard(elIcon, bookId, otherIconSlctr) {
+    const elBookCards = document.querySelectorAll('.book-card')
+    elBookCards.forEach(bookCard => {
+        var currBookId = bookCard.id.substring(5)
+        console.log('currBookId', currBookId)
+
+        if (bookCard.id !== `book-${bookId}`) onCollapseCard(bookCard.querySelector('.collapse-card-icon'), currBookId, '.expand-card-icon')
+    })
+    gCurrBook = getBookById(bookId)
+
     elIcon.style.display = 'none'
-    
-    const elBookCard = document.querySelector(bookIdSlctr)
+    const elRateContainer = document.querySelector('.rate-container')
+    const elBookCard = document.querySelector(`#book-${bookId}`)
+
+    // elBookCard.querySelector('.rate').innerHTML = elRateContainer.innerHTML
+
+
     const elBookCardData = elBookCard.querySelector(`.card-data`)
     const elOtherIcon = elBookCard.querySelector(otherIconSlctr)
     elOtherIcon.style.display = 'inline'
     elBookCardData.classList.add('expanded')
 }
 
-function onCollapseCard(elIcon, bookIdSlctr, otherIconSlctr) {
+function onCollapseCard(elIcon, bookId, otherIconSlctr) {
     elIcon.style.display = 'none'
-    
-    const elBookCard = document.querySelector(bookIdSlctr)
-    const elBookCardData = elBookCard.querySelector(`.card-data`)
+
+    console.log('bookId', bookId)
+    const elBookCard = document.querySelector(`#book-${bookId}`)
+    console.log('elBookCard', elBookCard)
+
     const elOtherIcon = elBookCard.querySelector(otherIconSlctr)
     elOtherIcon.style.display = 'inline'
+
+    const elBookCardData = elBookCard.querySelector(`.card-data`)
     elBookCardData.classList.remove('expanded')
+}
+
+function onRatingHover(bookId, num) {
+    document.querySelectorAll(`.star`).forEach(elStar => elStar.classList.remove('active','selected'))
+
+    gRating = num
+    for (var i = 1; i < 6; i++) {
+        if (i > num) break
+
+        if (bookId) var currElStar = document.querySelector(`#book-${bookId} .star-${i}`)
+        else var currElStar = document.querySelector(`.star-${i}`)
+        currElStar.classList.add('active')
+    }
+}
+
+function onLockRating() {
+    for (var i = 1; i <= gRating; i++) {
+
+        var currElStar = document.querySelector(`.star-${i}`)
+        currElStar.classList.add('selected')
+    }
 }
