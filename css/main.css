@@ -3,9 +3,45 @@
 }
 
 .content-container {
-    min-width: 50%;
-    width: fit-content;
+    min-width: 400px;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
     margin: auto auto;
+}
+
+.view-select-container {
+    display: flex;
+    background-color: #d5d5d5;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 3px;
+    gap: 3px;
+}
+
+.view-select-container img {
+    width: 2em;
+    height: 2em;
+    opacity: 0.5;
+    transition: 0.5s
+}
+
+.view-select-container img.active {
+    opacity: 1;
+}
+
+.filter input {
+    margin-block: 10px;
+    min-width: 400px;
+}
+
+.filter {
+    min-width: 50vw;
+
+}
+
+.data-container {
+    width: 100%;
 }
 
 button {
@@ -25,24 +61,48 @@ button:hover {
     opacity: 0.7;
 }
 
-.read-btn {
-    background-color: lightskyblue;
+.read-btn,
+.update-btn,
+.delete-btn {
+    background-color: white;
+    border: 2px solid lightgrey;
+    display: flex;
+    padding: 3px;
+    ;
+    gap: 5px;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-.update-btn {
-    background-color: moccasin;
-
+.read-btn svg,
+.update-btn svg,
+.delete-btn svg {
+    margin-inline-start: 1px;
 }
 
 .delete-btn {
-    background-color: orange;
+    border: 2px solid rgb(238, 110, 110);
+    color: rgb(238, 110, 110);
+}
+
+.update-btn {
+    border: 2px solid rgb(207, 146, 40);
+    color: rgb(207, 146, 40);
+    
+}
+
+.read-btn {
+    color: rgb(97, 97, 229);
+    border: 2px solid rgb(97, 97, 229);
 
 }
+
 
 .add-approve-btn,
 .add-cancel-btn,
 .add-btn {
     width: 3em;
+
     color: white;
     background-color: rgb(92, 90, 93);
 }
@@ -53,7 +113,7 @@ button:hover {
 }
 
 .add-btn {
-    margin: 5px auto;
+    margin-block: 5px;
 }
 
 .add-approve-btn:hover,
@@ -70,20 +130,6 @@ button:hover {
     box-shadow: black inset 2px 2px 2px;
 }
 
-.input-row {
-    display: none;
-    /* border-top: 2px solid rgb(227, 223, 223); */
-}
-
-.input-row td {
-    background-color: white;
-}
-
-input {
-    width: 100%;
-    margin-block: 3px;
-}
-
 .details-modal {
     width: 40vw;
     height: 60vw;
@@ -95,16 +141,6 @@ dialog form {
     align-items: center;
 }
 
-img {
-    margin: auto auto;
-    width: 20vw;
-    height: 30vw;
-}
-
-.filter {
-    margin-block: 10px;
-    display: flex;
-}
 
 .success-message {
     display: none;
@@ -124,105 +160,57 @@ img {
     transition: 0.2s;
 }
 
+.book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 
-/* table view */
-
-th {
-    border: 0.1em solid rgb(159, 157, 157);
-
-}
-
-td {
-    height: 2em;
-    padding-inline: 0.4em;
-    padding-block: 0.2em;
-    align-content: center;
-}
-
-tr:nth-child(even) {
+    margin-block: 10px;
     background-color: rgb(244, 243, 243);
+    box-shadow: 3px 3px 3px rgb(167, 166, 166);
 }
 
-tr:last-child td {
-    border-bottom: 0.1em solid rgb(159, 157, 157);
-
+.book-card h2 {
+    font-size: 10px;
+    margin-inline-start: 0;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: auto auto;
-
-}
-
-tr td:nth-child(2) {
-    width: 6em;
-}
-
-.flex-wrapper {
+.book-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1em
+    justify-content: flex-start;
+    gap: 0.7em
 }
 
-.flex-wrapper:first-child {
-    justify-content: flex-start;
-
+.book-cover {
+    padding: 0.2em;
+    width: 70%;
+    height: 80%;
 }
 
 .book-title {
     margin-inline-start: 0;
 }
 
-th {
-    background-color: lightgray;
-    padding: 0.5em;
-}
-
-
-
-
-.rate-numbers-container {
-    width: 2em;
-    font-size: 1.5em;
-    line-height: 100%;
-}
-
-.rate-container {
-    display: flex;
-
-}
-
-.rate-plus-inner {
-    position: relative;
-    height: 70%;
-    flex-basis: 70%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 2em;
-    background-color: rgb(114, 114, 208);
-    color: rgb(243, 223, 113);
-    text-align: center;
-    line-height: 70%;
-    border-radius: 50%;
-}
-
 .modal-close-btn {
     margin-top: 10px;
 }
 
+input {
+    width: 100%;
+    margin-block: 10px;
+}
 
-.rating-chip {
-    margin-inline-start: 1.5em;
-    color: rgb(248, 211, 1);
-    border-radius: 10px;
-    text-align: center;
-    font-size: 0.8em;
-    padding: 0;
+dialog::backdrop {
+    opacity: 0.8;
+    background-color: white;
+}
+
+img {
+    margin: auto auto;
+    width: 20vw;
+    height: 30vw;
 }
 
 .star.active {
@@ -234,110 +222,101 @@ th {
 .star.selected {
     color: rgb(248, 211, 1);
     opacity: 1;
-
-
 }
 
-.view-select-container img {
-    width: 2em;
+
+
+/* table view */
+
+th {
+    border: 0.1em solid rgb(159, 157, 157);
+    background-color: lightgray;
+    padding: 0.5em;
+}
+
+td {
     height: 2em;
-    opacity: 0.5;
-    transition: 0.5s
+    
+    align-content: center;
+
+    padding-inline: 0.4em;
+    padding-block: 0.2em;
 }
 
-.view-select-container img.active {
-    opacity: 1;
-
+tr:nth-child(even) {
+    background-color: rgb(244, 243, 243);
 }
 
-.view-select-container {
-    display: flex;
-    background-color: #d5d5d5;
-    width: fit-content;
-    border-radius: 5px;
-    padding: 3px;
-    gap: 3px;
+tr:last-child td {
+    border-bottom: 0.1em solid rgb(159, 157, 157);
 }
 
-
-.book-card h2 {
-    font-size: 10px;
-    margin-inline-start: 0;
-}
-
-.table-container {
+table {
     width: 100%;
+    border-collapse: collapse;
+    margin: auto auto;
 }
 
-.table-container.grid-view {
+.table-view .actions {
+    background-color: transparent;
+    border: 0;
+}
+
+
+
+/* grid-view */
+
+.data-container.grid-view {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
-
 }
 
-.table-container .book-cover {
-    /* background-color: white; */
-    padding: 0.2em;
-    width: 3em;
-    height: 5em;
-}
-
-.book-card {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(244, 243, 243);
-    align-items: center;
-    gap: 5px;
-    margin-block: 10px;
-    box-shadow: 3px 3px 3px rgb(167, 166, 166);
-
+.data-container.grid-view h2 {
+    margin: 0;
 }
 
 .grid-view .book-card {
     padding: 10px;
     border: 2px solid lightgrey;
-
 }
 
-.table-container.grid-view h2 {
-    margin: 0;
+.grid-view .book-header{
+    flex-direction: column;
+    align-items: center;
 }
 
-dialog::backdrop {
-    opacity: 0.8;
-    background-color: white;
-}
+/* list view */
 
 .list-view .book-card {
-    background-color: white;
-    box-shadow: 0 0 0;
-    /* margin-block: 10px; */
+    flex-shrink: 1;
     flex-direction: column;
-    transition: 0.2s;
     align-items: stretch;
     gap: 0;
-
+    
+    background-color: white;
+    box-shadow: 0 0 0;
+    transition: 0.2s;
 }
 
 .book-card .card-header {
-    flex-basis: 100%;
-    background-color: rgb(245, 245, 245);
-    gap: 5px;
     display: flex;
     flex-direction: row;
-    padding: 5px;
+    flex-basis: 100%;
+    
     align-items: center;
-
+    padding: 5px;
+    gap: 5px;
+    
+    background-color: rgb(245, 245, 245);
     border: 2px solid lightgrey;
     box-shadow: 3px 3px 3px rgb(155, 154, 154);
-
 }
 
 .card-icon {
-    display: inline;
     width: 1em;
     height: 1em;
+    
     margin-inline-start: 0;
     margin-inline-end: 1px;
 }
@@ -348,63 +327,55 @@ dialog::backdrop {
 
 .card-data {
     display: none;
-    background-color: rgb(255, 255, 255);
-    justify-items: flex-start;
-    align-items: center;
-    opacity: 0;
+    
     width: 0;
     height: 0;
-
+    
+    justify-items: flex-start;
+    align-items: center;
     padding: 5px;
+    
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
 }
 
 .card-data.expanded {
     display: flex;
     flex-direction: column;
-    opacity: 1;
-    width: 99%;
-    margin-inline: auto;
+    
     height: fit-content;
+    width: 99%;
+    
+    margin-inline: auto;
+    padding: 0;
+    
+    opacity: 1;
     animation: expand 0.2s ease;
     border: 2px solid lightgrey;
-    padding: 0;
-    /* box-shadow: inset 0 3px 3px 2px rgb(155, 154, 154); */
-    ;
 }
 
 @keyframes expand {
     0% {
         opacity: 0;
-        /* width: 0; */
         transform: translateY(-20px);
-        /* height: 0; */
     }
 
     100% {
         opacity: 1;
-        /* width: 100%; */
-        /* height: fit-content; */
         transform: translateY(0);
 
     }
 }
 
 @keyframes collapse {
-
-
     0% {
         opacity: 1;
-        /* width: 100%; */
-        /* height: fit-content; */
         transform: translateY(0);
-
     }
 
     1000% {
         opacity: 0;
-        /* width: 0; */
         transform: translateY(-20px);
-        /* height: 0; */
     }
 }
 
@@ -417,22 +388,25 @@ dialog::backdrop {
         "cover price";
 
     width: 100%;
-    height: 6em;
+    height: fit-content;
 
     gap: 10px;
     padding: 10px;
-    align-items: flex-end;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    align-items: end;
 }
 
 .book-information .change-rating-btn {
     grid-area: btn;
+
 }
 
 .book-information .book-cover {
     margin: 0;
+    width: 4em;
+    height: 6em;
+    background-color: lightgray;
+    border: 2px solid lightgrey;
+
     grid-area: cover;
 }
 
@@ -445,7 +419,22 @@ dialog::backdrop {
     gap: 10px;
     background-color: rgb(245, 245, 245);
 
+}
 
+.grid-view .actions {
+    flex-direction: column;
+
+}
+
+.grid-view .actions img {
+    margin-inline-start: 0;
+    flex-basis: fit-content;
+
+}
+
+.grid-view .actions button {
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .card-data.expanded .rate {
@@ -461,11 +450,6 @@ dialog::backdrop {
     align-items: flex-start;
 }
 
-.card-data.expanded .rate-plus-btn {
-    display: block;
-    width: 3rem;
-    height: 3rem;
-}
 
 .card-data.expanded .book-price {
     grid-area: price;
@@ -473,18 +457,4 @@ dialog::backdrop {
     justify-content: flex-start;
     align-self: end;
 
-}
-
-.card-data.expanded .rate-numbers-container {
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    font-size: 100%;
-}
-
-.card-data.expanded .rate-minus-btn {
-    display: block;
-
-    width: 3rem;
-    height: 3rem;
 }
