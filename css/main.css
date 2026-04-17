@@ -30,9 +30,12 @@
     opacity: 1;
 }
 
+fieldset{
+    margin-block: 10px;
+}
 .filter input {
     margin-block: 10px;
-    min-width: 400px;
+    width: 100%;
 }
 
 .filter {

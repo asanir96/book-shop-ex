@@ -8,11 +8,21 @@ const PLACEHOLDER = 'img/book.svg'
 var gBooks
 _createBooks()
 
-function getBooks(bookTitle) {
-    const lowerBookTitle = bookTitle.trim().toLowerCase()
-    if (!lowerBookTitle) return gBooks
+function getBooks(queryOptions) {
+    var books = [...gBooks]
+    console.log('queryOptions',queryOptions)
+    if (queryOptions.filterBy.title) {
+        const lowerBookTitle = queryOptions.filterBy.title.trim().toLowerCase()
+        if (lowerBookTitle) {
+            books = books.filter(book => book.title.toLowerCase().includes(lowerBookTitle))
+        }
+    }
 
-    return gBooks.filter(book => book.title.toLowerCase().includes(lowerBookTitle))
+    if (queryOptions.filterBy.minRating) {
+        books = books.filter(book => book.rating >= queryOptions.filterBy.minRating)
+    }
+
+    return books
 }
 
 function removeBook(bookId) {
@@ -32,7 +42,7 @@ function updateBook(bookId, property, value) {
 
 
 function addBook(title, price, imgUrl, rating) {
-    gBooks.push(_createBook(title,price,imgUrl,rating))
+    gBooks.push(_createBook(title, price, imgUrl, rating))
 
     _saveBooks()
 }

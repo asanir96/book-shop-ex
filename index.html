@@ -15,11 +15,24 @@
             <img class="icon grid-icon" src="img/grid.svg" alt="" onclick="onChangeView('grid')">
             <img class="icon list-icon" src="img/list.svg" alt="" onclick="onChangeView('list')">
         </div>
-
-        <form class="filter">
-            <input type="text" name="" id="" placeholder="Filter by Book Title" oninput="onFilter(this)" size="1">
-        </form>
-
+        <fieldset>
+            <legend>
+                Filter & sort
+            </legend>
+            <div class="filter">
+                <label for="by-title"></label>
+                <input class="filter-by-title" type="text" name="" id="by-title" placeholder="Filter By Title" oninput="onSetFilter()" size="1">
+            </div>
+            <label for="by-rating">Filter Min Rating</label>
+            <select name="" id="by-rating" onchange="onSetFilter()" class="filter-by-rating">
+                <option value="0"></option>
+                <option value="1">&#9733;</option>
+                <option value="2">&#9733;&#9733;</option>
+                <option value="3">&#9733;&#9733;&#9733;</option>
+                <option value="4">&#9733;&#9733;&#9733;</option>
+                <option value="5">&#9733;&#9733;&#9733;&#9733;</option>
+            </select>
+        </fieldset>
         <div class="data-container">
         </div>
 

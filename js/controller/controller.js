@@ -6,6 +6,11 @@ var gCurrBook
 var gFilteredBooks
 var gRating
 var gView = 'table'
+var gQueryOptions = {
+    page: { id: 0, size: 4 },
+    sort: { id: 0, size: 4 },
+    filterBy: { title: '', minRating: null }
+}
 
 const STAR = '&#9733;'
 const STAR_ADD_ICON = '&oplus;'
@@ -14,7 +19,7 @@ function onInit() {
 }
 
 function renderBooks() {
-    gFilteredBooks = getBooks(gFilterBy)
+    gFilteredBooks = getBooks(gQueryOptions)
     const elTableContainer = document.querySelector('.data-container')
 
     switch (gView) {
@@ -228,8 +233,14 @@ function onShowDetails(bookId) {
     elDetailsDialog.showModal()
 }
 
-function onFilter(elInput) {
-    gFilterBy = elInput.value
+function onSetFilter() {
+    const elTitle = document.querySelector('.filter-by-title')
+    const elMinRating = document.querySelector('.filter-by-rating')
+
+    gQueryOptions.filterBy = {
+        title: elTitle.value,
+        minRating: +elMinRating.value
+    }
 
     renderBooks()
 }
@@ -346,7 +357,7 @@ function renderRatingChipStyle(elRateChip, idx) {
 
 
     elRateChip.innerHTML = strHTML
-    elRateChip.classList.add('star','selected')
+    elRateChip.classList.add('star', 'selected')
 }
 
 function onChangeView(selectedView) {
