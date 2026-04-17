@@ -94,7 +94,7 @@ button:hover {
 .read-btn {
     color: rgb(97, 97, 229);
     border: 2px solid rgb(97, 97, 229);
-
+    
 }
 
 
@@ -102,9 +102,10 @@ button:hover {
 .add-cancel-btn,
 .add-btn {
     width: 3em;
-
-    color: white;
-    background-color: rgb(92, 90, 93);
+    
+    border: 2px solid black;
+    color: black;
+    background-color: white;
 }
 
 .add-approve-btn,
@@ -113,13 +114,23 @@ button:hover {
 }
 
 .add-btn {
+    display: flex;
     margin-block: 5px;
+    padding: 2px;
+
+    width: 2.5em;
+
+    align-items: center;
+    justify-content: center;
 }
 
+.add-btn svg{
+    margin: auto auto;
+}
 .add-approve-btn:hover,
 .add-cancel-btn:hover,
 .add-btn:hover {
-    background-color: rgb(145, 143, 146);
+    /* background-color: rgb(145, 143, 146); */
 
 }
 
@@ -252,6 +263,7 @@ tr:last-child td {
 }
 
 table {
+    flex-shrink: 1;
     width: 100%;
     border-collapse: collapse;
     margin: auto auto;
