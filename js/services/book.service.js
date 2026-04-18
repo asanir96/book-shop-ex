@@ -12,11 +12,13 @@ function getBooks(queryOptions) {
     var books = [...gBooks]
     books = _filterBooks(books, queryOptions.filterBy)
     books = _sortBooks(books, queryOptions.sortBy)
-    books = _getCurrPageBooks(books,queryOptions.page)
+    books = _getCurrPageBooks(books, queryOptions.page)
     return books
 }
 
 function _filterBooks(books, filterBy) {
+    if (!filterBy.title) return books
+
     if (filterBy.title) {
         const lowerBookTitle = filterBy.title.trim().toLowerCase()
         if (lowerBookTitle) {
@@ -103,4 +105,19 @@ function _createBook(title, price, imgUrl, rating) {
 
 function _saveBooks() {
     saveToStorage(STORAGE_KEY, gBooks)
+}
+
+function getLastPage(queryOptions) {
+    var books = [...gBooks]
+    books = _filterBooks(books, queryOptions.filterBy)
+    
+    const lastPage = Math.ceil(books.length / queryOptions.page.size) - 1
+    return lastPage
+}
+function getFirstPage(queryOptions) {
+    var books = [...gBooks]
+    books = _filterBooks(books, queryOptions.filterBy)
+
+    const firstPage = Math.ceil(books.length / queryOptions.page.size) - 1
+    return firstPage
 }

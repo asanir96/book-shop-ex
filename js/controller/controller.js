@@ -426,8 +426,12 @@ function renderRatingChipStyle(elRateChip, idx) {
 function onChangeView(selectedView) {
     if (gIsEditMode) return
 
+    gQueryOptions.page.idx = 0
+    if (selectedView === 'grid') gQueryOptions.page.size = 6
+    else if (selectedView === 'table') gQueryOptions.page.size = 4
+    
     gView = selectedView
-    // elIcon.classList.add('active')
+
     const elIcons = document.querySelectorAll('.icon')
     elIcons.forEach(elIcon => {
         console.log(elIcon.classList)
@@ -602,11 +606,24 @@ function setQueryParams() {
 
 function onNextPage() {
     gQueryOptions.page.idx++
+
+    console.log(getLastPage(gQueryOptions))
+    console.log(gQueryOptions.page.idx)
+    if (gQueryOptions.page.idx > getLastPage(gQueryOptions)) {
+        gQueryOptions.page.idx = 0
+    }
+
     document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
     renderBooks()
 }
 function onPrevPage() {
     gQueryOptions.page.idx--
+    console.log('gQueryOptions.page.idx', gQueryOptions.page.idx)
+
+    if (gQueryOptions.page.idx < 0) {
+        gQueryOptions.page.idx = getLastPage(gQueryOptions)
+    }
+    console.log('gQueryOptions.page.idx', gQueryOptions.page.idx)
     document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
     renderBooks()
 }

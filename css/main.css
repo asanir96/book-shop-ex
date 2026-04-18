@@ -4,9 +4,10 @@
 
 .content-container {
     min-width: 400px;
-    width: 50vw;
+    width: 70vw;
     display: flex;
     flex-direction: column;
+    align-items:stretch;
     margin: auto auto;
 }
 
@@ -115,6 +116,11 @@
 
 
 .data-container {
+    display: flex;
+    flex-shrink: 1;
+    flex-grow:1;
+    align-items: stretch;
+    justify-content: stretch;
     width: 100%;
 }
 
@@ -141,9 +147,9 @@ button:hover {
     background-color: white;
     border: 2px solid lightgrey;
     display: flex;
-    padding: 3px;
+    padding: 1px;
     ;
-    gap: 5px;
+    gap: 2px;
     align-items: center;
     justify-content: flex-start;
 }
@@ -192,7 +198,7 @@ button:hover {
     margin-block: 5px;
     padding: 2px;
 
-    width: 2.5em;
+    /* width: 2.5em; */
 
     align-items: center;
     justify-content: center;
@@ -258,15 +264,16 @@ dialog form {
 }
 
 .book-card h2 {
-    font-size: 10px;
+    font-size: 1rem;
     margin-inline-start: 0;
 }
 
 .book-header {
     display: flex;
     align-items: center;
+    flex-basis: 20%;
     justify-content: flex-start;
-    gap: 0.7em
+    /* gap: 0.7em */
 }
 
 .book-cover {
@@ -343,12 +350,15 @@ img {
 
 /* table view */
 
+
 th {
     /* width: 10px; */
     border: 0.1em solid rgb(159, 157, 157);
     background-color: lightgray;
     padding: 0.5em;
 }
+
+
 
 .table-header {
     display: flex;
@@ -364,6 +374,16 @@ td {
     padding-block: 0.2em;
 }
 
+td:last-child{
+    width: 40vw;
+}
+td:first-child{
+    width: 20vw;
+}
+td:nth-child(2){
+    width: 10vw;
+}
+
 tr:nth-child(even) {
     background-color: rgb(244, 243, 243);
 }
@@ -375,13 +395,19 @@ tr:last-child td {
 table {
     flex-shrink: 1;
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin: auto auto;
 }
 
 .table-view .actions {
     background-color: transparent;
+    width:40vw;
     border: 0;
+}
+.table-view .book-header {
+    width:20vw;
+    flex-wrap: wrap;
 }
 
 
@@ -411,6 +437,7 @@ table {
 /* list view */
 
 .list-view .book-card {
+    width:100%;
     flex-shrink: 1;
     flex-direction: column;
     align-items: stretch;
@@ -536,6 +563,7 @@ table {
     display: flex;
     width: 100%;
     justify-content: flex-end;
+    flex-shrink: 1;
     border-top: 2px solid lightgrey;
     padding: 5px;
     gap: 10px;
