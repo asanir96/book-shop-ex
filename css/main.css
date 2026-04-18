@@ -31,7 +31,6 @@
 }
 
 .filter {
-    /* min-width: 400px; */
     display: grid;
     grid-template-columns: 5fr 4fr 1fr;
     grid-template-rows: 1fr;
@@ -48,7 +47,6 @@
 .by-title {
     margin-block: 10px;
     grid-area: input;
-    /* width: 100%; */
 }
 
 .by-title input {

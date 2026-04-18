@@ -15,6 +15,7 @@ var gQueryOptions = {
 const STAR = '&#9733;'
 const STAR_ADD_ICON = '&oplus;'
 function onInit() {
+    readQueryParams()
     renderBooks()
 }
 
@@ -33,6 +34,7 @@ function renderBooks() {
             renderBookList(elTableContainer)
             break;
     }
+    setQueryParams()
 }
 
 function renderBookTable(elTableContainer) {
@@ -301,6 +303,9 @@ function onSetSortBy(field) {
 
     if (!elSortDirection || elSortDirection.value === 'ascend') gQueryOptions.sortBy.sortDir = 1
     else gQueryOptions.sortBy.sortDir = -1
+
+    if (!elSortDirection) document.querySelector('.sort-ascend').checked = true
+
     renderBooks()
 }
 function showSuccessMsg(msg) {
@@ -536,3 +541,63 @@ function getBookHeaderHTML(book) {
                                 <div class= "rating-chip">${book.rating ? book.rating : ''} </div>
                             </div>`
 }
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+
+    if (queryParams.get('title')) {
+        const title = queryParams.get('title')
+        gQueryOptions.filterBy.title = title
+    }
+    if (queryParams.get('minRating')) {
+        const minRating = queryParams.get('minRating')
+        gQueryOptions.filterBy.minRating = minRating
+    }
+    if (queryParams.get('sortField')) {
+        const sortField = queryParams.get('sortField')
+        const sortDir = queryParams.get('sortDir')
+
+        gQueryOptions.sortBy = {
+            sortField,
+            sortDir
+        }
+    }
+
+    renderQueryParams()
+}
+
+function renderQueryParams() {
+    document.querySelector('.filter-by-title').value = gQueryOptions.filterBy.title
+    document.querySelector('.filter-by-rating').value = gQueryOptions.filterBy.minRating
+
+    if (gQueryOptions.sortBy.sortField) {
+        document.querySelector('.sort-by select').value = gQueryOptions.sortBy.sortField
+        document.querySelector(`input.sort-${gQueryOptions.sortBy.sortDir === 1 ? 'ascend' : 'descend'}`).checked = true
+    }
+
+}
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    if (gQueryOptions.filterBy.title) {
+        queryParams.set('title', gQueryOptions.filterBy.title)
+
+    }
+
+    if (gQueryOptions.sortBy.sortField) {
+        queryParams.set('sortField', gQueryOptions.sortBy.sortField)
+        queryParams.set('sortDir', gQueryOptions.sortBy.sortDir)
+    }
+
+    if (gQueryOptions.filterBy.minRating) {
+        queryParams.set('minRating', gQueryOptions.filterBy.minRating)
+    }
+
+    const newUrl =
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+// function 
