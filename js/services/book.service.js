@@ -12,6 +12,7 @@ function getBooks(queryOptions) {
     var books = [...gBooks]
     books = _filterBooks(books, queryOptions.filterBy)
     books = _sortBooks(books, queryOptions.sortBy)
+    books = _getCurrPageBooks(books,queryOptions.page)
     return books
 }
 
@@ -40,6 +41,13 @@ function _sortBooks(books, sortBy) {
     }
 
     return books
+}
+
+function _getCurrPageBooks(books, page) {
+    const startIdx = page.idx * page.size
+    const endIdx = startIdx + page.size
+
+    return books.slice(startIdx, endIdx)
 }
 
 function removeBook(bookId) {
@@ -85,7 +93,7 @@ function _createBook(title, price, imgUrl, rating) {
         id: makeid(),
         title,
         price,
-        rating: rating? rating:0
+        rating: rating ? rating : 0
     }
 
     if (imgUrl) book.imgUrl = imgUrl
