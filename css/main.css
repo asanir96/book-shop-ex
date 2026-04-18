@@ -30,18 +30,76 @@
     opacity: 1;
 }
 
-fieldset{
-    margin-block: 10px;
-}
-.filter input {
-    margin-block: 10px;
-    width: 100%;
-}
-
 .filter {
-    min-width: 50vw;
+    /* min-width: 400px; */
+    display: grid;
+    grid-template-columns: 5fr 4fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        'input rating clear';
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-block: 10px;
+    column-gap: 10px;
+    padding-block: 0;
+}
+
+.by-title {
+    margin-block: 10px;
+    grid-area: input;
+    /* width: 100%; */
+}
+
+.by-title input {
+    margin-block: 0;
+}
+
+/* .filter label {
+    grid-area: label;
+
+} */
+
+.by-rating{
+    grid-area: rating;
+    display: flex;
+    gap:5px;
+}
+/* 
+.filter select {
+    grid-area: select;
+
+} */
+
+.filter button {
+    grid-area: clear;
 
 }
+
+.sort {
+    display: grid;
+    grid-template-columns: 4fr 3fr 6fr;
+    grid-template-rows: 1fr;
+
+    margin-block: 10px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.sort-by select{
+    margin-inline: 5px;
+}
+.sort-direction {
+    display: flex;
+    align-items: center;
+}
+
+.sort-direction label{
+    font-size: small;
+    margin-inline: 10px;
+}
+
 
 .data-container {
     width: 100%;
@@ -91,13 +149,13 @@ button:hover {
 .update-btn {
     border: 2px solid rgb(207, 146, 40);
     color: rgb(207, 146, 40);
-    
+
 }
 
 .read-btn {
     color: rgb(97, 97, 229);
     border: 2px solid rgb(97, 97, 229);
-    
+
 }
 
 
@@ -105,7 +163,7 @@ button:hover {
 .add-cancel-btn,
 .add-btn {
     width: 3em;
-    
+
     border: 2px solid black;
     color: black;
     background-color: white;
@@ -127,9 +185,10 @@ button:hover {
     justify-content: center;
 }
 
-.add-btn svg{
+.add-btn svg {
     margin: auto auto;
 }
+
 .add-approve-btn:hover,
 .add-cancel-btn:hover,
 .add-btn:hover {
@@ -243,14 +302,20 @@ img {
 /* table view */
 
 th {
+    /* width: 10px; */
     border: 0.1em solid rgb(159, 157, 157);
     background-color: lightgray;
     padding: 0.5em;
 }
 
+.table-header {
+    display: flex;
+    justify-content: center;
+}
+
 td {
     height: 2em;
-    
+
     align-content: center;
 
     padding-inline: 0.4em;
@@ -296,7 +361,7 @@ table {
     border: 2px solid lightgrey;
 }
 
-.grid-view .book-header{
+.grid-view .book-header {
     flex-direction: column;
     align-items: center;
 }
@@ -308,7 +373,7 @@ table {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    
+
     background-color: white;
     box-shadow: 0 0 0;
     transition: 0.2s;
@@ -318,11 +383,11 @@ table {
     display: flex;
     flex-direction: row;
     flex-basis: 100%;
-    
+
     align-items: center;
     padding: 5px;
     gap: 5px;
-    
+
     background-color: rgb(245, 245, 245);
     border: 2px solid lightgrey;
     box-shadow: 3px 3px 3px rgb(155, 154, 154);
@@ -331,7 +396,7 @@ table {
 .card-icon {
     width: 1em;
     height: 1em;
-    
+
     margin-inline-start: 0;
     margin-inline-end: 1px;
 }
@@ -342,14 +407,14 @@ table {
 
 .card-data {
     display: none;
-    
+
     width: 0;
     height: 0;
-    
+
     justify-items: flex-start;
     align-items: center;
     padding: 5px;
-    
+
     background-color: rgb(255, 255, 255);
     opacity: 0;
 }
@@ -357,13 +422,13 @@ table {
 .card-data.expanded {
     display: flex;
     flex-direction: column;
-    
+
     height: fit-content;
     width: 99%;
-    
+
     margin-inline: auto;
     padding: 0;
-    
+
     opacity: 1;
     animation: expand 0.2s ease;
     border: 2px solid lightgrey;

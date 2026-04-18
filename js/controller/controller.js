@@ -8,7 +8,7 @@ var gRating
 var gView = 'table'
 var gQueryOptions = {
     page: { id: 0, size: 4 },
-    sort: { id: 0, size: 4 },
+    sortBy: { sortField: '', sortDir: 1 },
     filterBy: { title: '', minRating: null }
 }
 
@@ -36,6 +36,7 @@ function renderBooks() {
 }
 
 function renderBookTable(elTableContainer) {
+    console.log('gFilteredBooks', gFilteredBooks)
     elTableContainer.classList.remove('grid-view')
     elTableContainer.classList.remove('list-view')
     elTableContainer.classList.add('table-view')
@@ -43,9 +44,36 @@ function renderBookTable(elTableContainer) {
     var tableStrHTML = `            <table>
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <th>
+                        <div class= "table-header">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16" height="16" 
+                                     fill="currentColor" 
+                                     class="bi bi-sort-up-alt" 
+                                     viewBox="0 0 16 16"
+                                     onclick="onSetSortBy(title)">
+                                    <path d="M3.5 13.5a.5.5 0 0 1-1 0V4.707L1.354 5.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 4.707zm4-9.5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5"/>
+                                </svg>
+
+                            Title
+                            </div>
+                        </th>
+                        <th>
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16" height="16" 
+                                     fill="currentColor" 
+                                     class="bi bi-sort-up-alt" 
+                                     viewBox="0 0 16 16"
+                                     onclick="onSetSortBy('price')">
+                                    <path d="M3.5 13.5a.5.5 0 0 1-1 0V4.707L1.354 5.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 4.707zm4-9.5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5"/>
+                                </svg>
+                            Price
+                            </th>
+                        <th>
+                            Actions
+                        </th>
                     </tr>
                 </thead>`
 
@@ -245,6 +273,36 @@ function onSetFilter() {
     renderBooks()
 }
 
+
+function onClearFilter() {
+    gQueryOptions.filterBy = {
+        title: '',
+        minRating: null
+    }
+
+    renderBooks()
+    renderDefaultFilter()
+}
+
+function renderDefaultFilter() {
+    const elTitle = document.querySelector('.filter-by-title')
+    const elMinRating = document.querySelector('.filter-by-rating')
+    elTitle.value = ''
+    elMinRating.value = ''
+}
+
+function onSetSortBy(field) {
+    const elSort = document.querySelector('.sort-by select')
+    const elSortDirection = document.querySelector('input[name="sort-direction"]:checked')
+
+    gQueryOptions.sortBy = {
+        sortField: field ? field : elSort.value,
+    }
+
+    if (!elSortDirection || elSortDirection.value === 'ascend') gQueryOptions.sortBy.sortDir = 1
+    else gQueryOptions.sortBy.sortDir = -1
+    renderBooks()
+}
 function showSuccessMsg(msg) {
     clearTimeout(gSuccessMsgTimeout)
 

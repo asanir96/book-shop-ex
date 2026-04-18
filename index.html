@@ -15,23 +15,49 @@
             <img class="icon grid-icon" src="img/grid.svg" alt="" onclick="onChangeView('grid')">
             <img class="icon list-icon" src="img/list.svg" alt="" onclick="onChangeView('list')">
         </div>
-        <fieldset>
+        <fieldset class="filter">
             <legend>
-                Filter & sort
+                Filter
             </legend>
-            <div class="filter">
+            <div class="by-title">
                 <label for="by-title"></label>
-                <input class="filter-by-title" type="text" name="" id="by-title" placeholder="Filter By Title" oninput="onSetFilter()" size="1">
+                <input class="filter-by-title" type="text" name="" id="by-title" placeholder="Filter By Title"
+                    oninput="onSetFilter()" size="1">
             </div>
-            <label for="by-rating">Filter Min Rating</label>
-            <select name="" id="by-rating" onchange="onSetFilter()" class="filter-by-rating">
-                <option value="0"></option>
-                <option value="1">&#9733;</option>
-                <option value="2">&#9733;&#9733;</option>
-                <option value="3">&#9733;&#9733;&#9733;</option>
-                <option value="4">&#9733;&#9733;&#9733;</option>
-                <option value="5">&#9733;&#9733;&#9733;&#9733;</option>
-            </select>
+            <div class="by-rating">
+                <label for="by-rating">Filter Min Rating</label>
+                <select name="" id="by-rating" onchange="onSetFilter()" class="filter-by-rating">
+                    <option value="0"></option>
+                    <option value="1">&#9733;</option>
+                    <option value="2">&#9733;&#9733;</option>
+                    <option value="3">&#9733;&#9733;&#9733;</option>
+                    <option value="4">&#9733;&#9733;&#9733;</option>
+                    <option value="5">&#9733;&#9733;&#9733;&#9733;</option>
+                </select>
+            </div>
+            <button onclick="onClearFilter()">Clear</button>
+
+        </fieldset>
+        <fieldset class="sort">
+            <legend>
+                Sort
+            </legend>
+
+            <div class="sort-by">
+                <label for="by-rating">Sort</label>
+                <select name="" id="by-rating" onchange="onSetSortBy()" class="sort-by">
+                    <option value="title">By Title</option>
+                    <option value="price">By Price</option>
+                    <option value="rating">By Rating</option>
+                </select>
+            </div>
+
+            <form onchange="onSetSortBy()" class="sort-direction">
+                <label for="sort-ascend">Ascending</label>
+                <input class="sort-ascend" type="radio" value='ascend' name="sort-direction" id="sort-ascend">
+                <label for="sort-descend">Descending</label>
+                <input class="sort-descend" type="radio" value='descend' name="sort-direction" id="sort-descend">
+            </form>
         </fieldset>
         <div class="data-container">
         </div>

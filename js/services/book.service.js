@@ -10,16 +10,32 @@ _createBooks()
 
 function getBooks(queryOptions) {
     var books = [...gBooks]
-    console.log('queryOptions',queryOptions)
-    if (queryOptions.filterBy.title) {
-        const lowerBookTitle = queryOptions.filterBy.title.trim().toLowerCase()
+    books = _filterBooks(books, queryOptions.filterBy)
+    books = _sortBooks(books, queryOptions.sortBy)
+    return books
+}
+
+function _filterBooks(books, filterBy) {
+    if (filterBy.title) {
+        const lowerBookTitle = filterBy.title.trim().toLowerCase()
         if (lowerBookTitle) {
             books = books.filter(book => book.title.toLowerCase().includes(lowerBookTitle))
         }
     }
 
-    if (queryOptions.filterBy.minRating) {
-        books = books.filter(book => book.rating >= queryOptions.filterBy.minRating)
+    if (filterBy.minRating) {
+        books = books.filter(book => book.rating >= filterBy.minRating)
+    }
+
+    return books
+}
+
+function _sortBooks(books, sortBy) {
+    console.log('sortBy',sortBy)
+    if (sortBy.sortField === 'title') {
+        books.sort((book1, book2) => book1.title.localeCompare(book2.title) * sortBy.sortDir)
+    } else {
+        books.sort((book1, book2) => (book1[sortBy.sortField] - book2[sortBy.sortField]) * sortBy.sortDir)
     }
 
     return books
@@ -68,7 +84,7 @@ function _createBook(title, price, imgUrl, rating) {
         id: makeid(),
         title,
         price,
-        rating
+        rating: rating? rating:0
     }
 
     if (imgUrl) book.imgUrl = imgUrl
