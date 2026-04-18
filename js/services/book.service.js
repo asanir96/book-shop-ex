@@ -31,7 +31,8 @@ function _filterBooks(books, filterBy) {
 }
 
 function _sortBooks(books, sortBy) {
-    console.log('sortBy',sortBy)
+    if (!sortBy.sortField) return books
+
     if (sortBy.sortField === 'title') {
         books.sort((book1, book2) => book1.title.localeCompare(book2.title) * sortBy.sortDir)
     } else {

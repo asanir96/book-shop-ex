@@ -8,7 +8,7 @@ var gRating
 var gView = 'table'
 var gQueryOptions = {
     page: { id: 0, size: 4 },
-    sortBy: { sortField: '', sortDir: 1 },
+    sortBy: { sortField: '', sortDir: null },
     filterBy: { title: '', minRating: null }
 }
 
@@ -308,6 +308,23 @@ function onSetSortBy(field) {
 
     renderBooks()
 }
+
+function onClearSortBy() {
+    gQueryOptions.sortBy = {
+        sortField: '',
+        sortDir: null
+    }
+
+    renderBooks()
+    renderDefaultSortBy()
+}
+
+function renderDefaultSortBy() {
+    document.querySelector('.sort-by select').value = ''
+    document.querySelector('input[name="sort-direction"]:checked').checked = false
+
+}
+
 function showSuccessMsg(msg) {
     clearTimeout(gSuccessMsgTimeout)
 

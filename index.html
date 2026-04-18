@@ -45,7 +45,8 @@
 
             <div class="sort-by">
                 <label for="by-rating">Sort</label>
-                <select name="" id="by-rating" onchange="onSetSortBy()" class="sort-by">
+                <select name="" id="by-rating" onchange="onSetSortBy()" >
+                    <option value=""></option>
                     <option value="title">By Title</option>
                     <option value="price">By Price</option>
                     <option value="rating">By Rating</option>
@@ -58,6 +59,7 @@
                 <label for="sort-descend">Descending</label>
                 <input class="sort-descend" type="radio" value='descend' name="sort-direction" id="sort-descend">
             </form>
+            <button onclick="onClearSortBy()">Clear</button>
         </fieldset>
         <div class="data-container">
         </div>
