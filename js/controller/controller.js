@@ -35,6 +35,7 @@ function renderBooks() {
             break;
     }
     setQueryParams()
+    renderQueryParams()
 }
 
 function renderBookTable(elTableContainer) {
@@ -201,13 +202,15 @@ function onUpdateBook(bookId) {
 
 }
 
-function onRevealInputRow(inputSlctr, apprvBtnSlctr, cnclBtnSlctr, elAddBtn) {
-    // disableActions()
+function onOpenEditModal(bookId) {
+    const elEditModal = document.querySelector('.book-edit-modal')
 
-    elAddBtn.style.display = 'none'
-
-    const elAddBookForm = document.querySelector('.add-book-form')
-    elAddBookForm.showModal()
+    if (bookId) {
+        const book = getBookById(bookId)
+        elEditModal.querySelector('.title-input').value = book.title
+        elEditModal.querySelector('.price-input').value = book.price
+    }
+    elEditModal.showModal()
 }
 
 function onCancelAddBook() {
@@ -250,6 +253,11 @@ function onSetFilter() {
     const elTitle = document.querySelector('.filter-by-title')
     const elMinRating = document.querySelector('.filter-by-rating')
 
+    gQueryOptions.page = {
+        idx: 0,
+        size: 4
+    }
+
     gQueryOptions.filterBy = {
         title: elTitle.value,
         minRating: +elMinRating.value
@@ -289,6 +297,10 @@ function onSetSortBy(field) {
 
     if (!elSortDirection) document.querySelector('.sort-ascend').checked = true
 
+    gQueryOptions.page = {
+        idx: 0,
+        size: 4
+    }
     renderBooks()
 }
 
@@ -324,7 +336,7 @@ function showSuccessMsg(msg) {
 }
 
 function hideAddBookUI() {
-    const elAddBookForm = document.querySelector('.add-book-form')
+    const elAddBookForm = document.querySelector('.book-edit-modal')
     const elAddBtn = document.querySelector('.add-btn')
 
     elAddBookForm.querySelector('.title-input').value = ''
@@ -429,7 +441,7 @@ function onChangeView(selectedView) {
     gQueryOptions.page.idx = 0
     if (selectedView === 'grid') gQueryOptions.page.size = 6
     else if (selectedView === 'table') gQueryOptions.page.size = 4
-    
+
     gView = selectedView
 
     const elIcons = document.querySelectorAll('.icon')
@@ -514,7 +526,7 @@ function getActionBtnsHTML(book) {
   <path d="M0 23.008v-17.984q0-1.024 0.48-1.888t1.28-1.44q1.024-0.672 2.24-0.672 0.736 0 1.472 0.256l10.016 4q0.064 0.032 0.512 0.32 0.448-0.288 0.512-0.32l10.016-4q0.736-0.256 1.472-0.256 1.248 0 2.24 0.672 0.832 0.576 1.312 1.44t0.448 1.888v17.984q0 1.248-0.672 2.24t-1.856 1.472l-9.984 4q-0.736 0.288-1.472 0.288-1.024 0-2.016-0.576-0.992 0.576-1.984 0.576-0.768 0-1.504-0.288l-9.984-4q-1.152-0.448-1.824-1.472t-0.704-2.24zM4 23.008l10.016 4v-17.984l-10.016-4v17.984zM6.016 21.824v-2.016l5.984 2.4v2.016zM6.016 17.824v-2.016l5.984 2.4v2.016zM6.016 13.824v-2.016l5.984 2.4v2.016zM6.016 9.824v-2.016l5.984 2.4v2.016zM18.016 27.008l9.984-4v-17.984l-9.984 4v17.984zM20 24.224v-2.016l6.016-2.4v2.016zM20 20.224v-2.016l6.016-2.4v2.016zM20 16.224v-2.016l6.016-2.4v2.016zM20 12.224v-2.016l6.016-2.4v2.016z"/>
 </svg>         Read
             </button>
-            <button class="update-btn" onclick="onUpdateBook('${book.id}')">
+            <button class="update-btn" onclick="onOpenEditModal('${book.id}')">
 <svg xmlns="http://www.w3.org/2000/svg"
      width="16"
      height="16"
@@ -566,7 +578,6 @@ function readQueryParams() {
         }
     }
 
-    renderQueryParams()
 }
 
 function renderQueryParams() {
@@ -577,6 +588,8 @@ function renderQueryParams() {
         document.querySelector('.sort-by select').value = gQueryOptions.sortBy.sortField
         document.querySelector(`input.sort-${gQueryOptions.sortBy.sortDir === 1 ? 'ascend' : 'descend'}`).checked = true
     }
+
+    document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
 
 }
 function setQueryParams() {
@@ -595,6 +608,8 @@ function setQueryParams() {
     if (gQueryOptions.filterBy.minRating) {
         queryParams.set('minRating', gQueryOptions.filterBy.minRating)
     }
+
+    queryParams.set('page', gQueryOptions.page.idx + 1)
 
     const newUrl =
         window.location.protocol + "//" +
