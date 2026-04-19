@@ -481,7 +481,8 @@ function onExpandCard(elIcon, bookId, otherIconSlctr) {
 
         if (bookCard.id !== `book-${bookId}`) onCollapseCard(bookCard.querySelector('.collapse-card-icon'), currBookId, '.expand-card-icon')
     })
-    gCurrBook = getBookById(bookId)
+    gCurrBookId = bookId
+    const book = getBookById(gCurrBookId)
 
     elIcon.style.display = 'none'
     const elRateContainer = document.querySelector('.rate-container')
