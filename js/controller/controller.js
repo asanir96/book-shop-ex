@@ -2,7 +2,7 @@
 var gFilterBy = ''
 var gSuccessMsgTimeout
 var gIsEditMode = false
-var gCurrBook
+var gCurrBookId = null
 var gFilteredBooks
 var gRating
 var gView = 'table'
@@ -20,6 +20,7 @@ function onInit() {
 }
 
 function renderBooks() {
+    console.log('gQueryOptions.filterBy',gQueryOptions.filterBy)
     gFilteredBooks = getBooks(gQueryOptions)
     const elTableContainer = document.querySelector('.data-container')
 
@@ -34,8 +35,7 @@ function renderBooks() {
             renderBookList(elTableContainer)
             break;
     }
-    setQueryParams()
-    renderQueryParams()
+
 }
 
 function renderBookTable(elTableContainer) {
@@ -44,24 +44,15 @@ function renderBookTable(elTableContainer) {
     elTableContainer.classList.remove('list-view')
     elTableContainer.classList.add('table-view')
 
-    var tableStrHTML = `            <table>
-                <thead>
-                    <tr>
-                        <th>
-                        <div class= "table-header">
-
-                            Title
-                            </div>
-                        </th>
-                        <th>
-
-                            Price
-                            </th>
-                        <th>
-                            Actions
-                        </th>
-                    </tr>
-                </thead>`
+    var tableStrHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th> <div class= "table-header">Title</div> </th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>`
 
     tableStrHTML += gFilteredBooks.map(book => {
         var strHTML = ''
@@ -204,16 +195,38 @@ function onUpdateBook(bookId) {
 
 function onOpenEditModal(bookId) {
     const elEditModal = document.querySelector('.book-edit-modal')
+    const elBookCover = elEditModal.querySelector('.book-cover')
 
     if (bookId) {
+        gCurrBookId = bookId
         const book = getBookById(bookId)
         elEditModal.querySelector('.title-input').value = book.title
         elEditModal.querySelector('.price-input').value = book.price
+        elBookCover.innerHTML = `<img class="book-cover" src="${book.imgUrl}" alt=""></img>`
+    } else {
+        elBookCover.innerHTML = `
+                <label for="book-cover">
+                    <svg class="upload-cover-icon" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-upload"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                        <path
+                            d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                    </svg>
+                    Upload a book cover image 
+                </label>
+                <input type="file" id="book-cover" />
+        `
+
+        const elBookCoverInput = elBookCover.querySelector('input')
+        elBookCoverInput.style.opacity = 0
+
     }
     elEditModal.showModal()
 }
 
 function onCancelAddBook() {
+    gCurrBookId = null
     hideAddBookUI()
     enableActions()
 }
@@ -223,7 +236,16 @@ function onAddBook(elForm, ev) {
     const bookTitle = elForm.querySelector('.title-input').value
     const bookPrice = +elForm.querySelector('.price-input').value
 
-    addBook(bookTitle, bookPrice)
+    if (gCurrBookId) {
+        updateBook(gCurrBookId, 'title', bookTitle)
+        updateBook(gCurrBookId, 'price', bookPrice)
+    } else {
+        addBook(bookTitle, bookPrice)
+        const bookCoverURL = document.querySelector('.book-cover input').files[0].name
+        console.log('bookCoverURL', bookCoverURL)
+    }
+
+    gCurrBookId = null
     hideAddBookUI()
     enableActions()
     showSuccessMsg('Book was added successfully!')
@@ -252,7 +274,7 @@ function onShowDetails(bookId) {
 function onSetFilter() {
     const elTitle = document.querySelector('.filter-by-title')
     const elMinRating = document.querySelector('.filter-by-rating')
-
+    console.log('elMinRating',elMinRating.value)
     gQueryOptions.page = {
         idx: 0,
         size: 4
@@ -262,7 +284,8 @@ function onSetFilter() {
         title: elTitle.value,
         minRating: +elMinRating.value
     }
-
+    setQueryParams()
+    renderQueryParams()
     renderBooks()
 }
 
@@ -272,7 +295,7 @@ function onClearFilter() {
         title: '',
         minRating: null
     }
-
+    setQueryParams()
     renderBooks()
     renderDefaultFilter()
 }
@@ -301,10 +324,13 @@ function onSetSortBy(field) {
         idx: 0,
         size: 4
     }
+    setQueryParams()
     renderBooks()
 }
 
 function onClearSortBy() {
+    if (!gQueryOptions.sortBy.sortField) return
+    
     gQueryOptions.sortBy = {
         sortField: '',
         sortDir: null
@@ -396,18 +422,8 @@ function hideRatingAction(rateActionBtnSlctr, plsBtnSlctr, minusBtnSlctr, rateNu
 }
 
 function onRateChange(changeDirection, rateNumContainerSlctr, ev) {
-    // ev.preventDefault()
-
-    // const elRatingNumContainer = document.querySelector(rateNumContainerSlctr)
-
-    // var currRating = +elRatingNumContainer.textContent
-    // if (currRating + changeDirection < 0 || currRating + changeDirection > 5) return
-
-    // elRatingNumContainer.innerText = currRating + changeDirection
-
     updateBook(gCurrBook.id, 'rating', gRating)
     renderBooks()
-
 }
 
 function onRatingHandler(elRateActionBtn, plsBtnSlctr, minusBtnSlctr, rateNumsContainerSlctr, ev) {
@@ -577,7 +593,7 @@ function readQueryParams() {
             sortDir
         }
     }
-
+    renderQueryParams()
 }
 
 function renderQueryParams() {
@@ -622,8 +638,6 @@ function setQueryParams() {
 function onNextPage() {
     gQueryOptions.page.idx++
 
-    console.log(getLastPage(gQueryOptions))
-    console.log(gQueryOptions.page.idx)
     if (gQueryOptions.page.idx > getLastPage(gQueryOptions)) {
         gQueryOptions.page.idx = 0
     }
@@ -631,14 +645,14 @@ function onNextPage() {
     document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
     renderBooks()
 }
+
 function onPrevPage() {
     gQueryOptions.page.idx--
-    console.log('gQueryOptions.page.idx', gQueryOptions.page.idx)
 
     if (gQueryOptions.page.idx < 0) {
         gQueryOptions.page.idx = getLastPage(gQueryOptions)
     }
-    console.log('gQueryOptions.page.idx', gQueryOptions.page.idx)
+
     document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
     renderBooks()
 }

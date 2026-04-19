@@ -7,7 +7,7 @@
     width: 70vw;
     display: flex;
     flex-direction: column;
-    align-items:stretch;
+    align-items: stretch;
     margin: auto auto;
 }
 
@@ -118,7 +118,7 @@
 .data-container {
     display: flex;
     flex-shrink: 1;
-    flex-grow:1;
+    flex-grow: 1;
     align-items: stretch;
     justify-content: stretch;
     width: 100%;
@@ -228,14 +228,50 @@ button:hover {
 }
 
 dialog form {
+    width: 30vw;
     display: flex;
     flex-flow: column;
     align-items: center;
 }
 
-.book-cover-input{
-    width:20vw;
-    height:10vw;
+.book-edit-modal .book-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block: 10px;
+}
+
+.book-edit-modal .book-cover label {
+    width: 15vw;
+    height: 20vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid gray;
+    border-radius: 5px;
+    color: grey;
+    /* background-color: gray; */
+}
+
+.book-edit-modal .book-cover label:hover {
+    background-color: lightgrey;
+    border-radius: 5px;
+    opacity: 0.7;
+}
+
+.upload-cover-icon {
+    width: 5w;
+    height: 5vw;
+    margin-block:5px;
+}
+
+.book-edit-modal img {
+    width: 15vw;
+    height: 20vw;
+    background-color: lightgray;
+    margin: auto auto;
 }
 
 .success-message {
@@ -350,7 +386,7 @@ img {
     border: 2px solid black;
     color: black;
     border-radius: 5px;
-    padding:0;
+    padding: 0;
 }
 
 /* table view */
@@ -373,21 +409,25 @@ td {
     height: 2em;
 
     align-content: center;
-      overflow: hidden;       /* hide overflowing content */
-  text-overflow: ellipsis; /* show "..." instead of hard cutoff */
-  white-space: nowrap;   
+    overflow: hidden;
+    /* hide overflowing content */
+    text-overflow: ellipsis;
+    /* show "..." instead of hard cutoff */
+    white-space: nowrap;
 
     padding-inline: 0.4em;
     padding-block: 0.2em;
 }
 
-td:last-child{
+td:last-child {
     width: 40vw;
 }
-td:first-child{
+
+td:first-child {
     width: 30vw;
 }
-td:nth-child(2){
+
+td:nth-child(2) {
     width: 10vw;
 }
 
@@ -412,15 +452,16 @@ table {
     background-color: transparent;
     border: 0;
 }
+
 .table-view .book-header {
-    width:20vw;
+    width: 20vw;
     flex-wrap: wrap;
 }
 
 
 .data-container.table-view {
-    display:table;
-  overflow-x: auto;
+    display: table;
+    overflow-x: auto;
     width: 100%;
 
 
@@ -451,7 +492,7 @@ table {
 /* list view */
 
 .list-view .book-card {
-    width:100%;
+    width: 100%;
     flex-shrink: 1;
     flex-direction: column;
     align-items: stretch;

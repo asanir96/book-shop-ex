@@ -17,7 +17,7 @@ function getBooks(queryOptions) {
 }
 
 function _filterBooks(books, filterBy) {
-    if (!filterBy.title) return books
+    if (!filterBy.title && !filterBy.minRating) return books
 
     if (filterBy.title) {
         const lowerBookTitle = filterBy.title.trim().toLowerCase()
