@@ -71,7 +71,25 @@
 
         </fieldset>
 
-        <div class="data-container">
+        <div class="data-container table-view">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="table-header">Title</div>
+                        </th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="data-container grid-view">
+        </div>
+
+        <div class="data-container list-view">
         </div>
 
         <div class="pagination">
@@ -139,6 +157,7 @@
             </div>
         </form>
     </dialog>
+
     <dialog class="details-modal">
         <form method="dialog">
             <h2></h2>
@@ -162,6 +181,7 @@
                 onclick="hideRatingAction('.rate-action-btn','.rate-plus-btn','.rate-minus-btn','.rate-numbers-container',event)">x</button>
         </form>
     </dialog>
+
     <div class="success-message">
 
     </div>

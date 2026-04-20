@@ -20,104 +20,78 @@ function onInit() {
 }
 
 function renderBooks() {
-    console.log('gQueryOptions.filterBy',gQueryOptions.filterBy)
+    console.log('gQueryOptions.filterBy', gQueryOptions.filterBy)
     gFilteredBooks = getBooks(gQueryOptions)
-    const elTableContainer = document.querySelector('.data-container')
 
     switch (gView) {
         case 'table':
+            const elTableContainer = document.querySelector('.table-view')
             renderBookTable(elTableContainer)
             break;
         case 'grid':
-            renderGridBooks(elTableContainer)
+            const elGridContainer = document.querySelector('.grid-view')
+            renderGridBooks(elGridContainer)
             break;
         case 'list':
-            renderBookList(elTableContainer)
+            const elListContainer = document.querySelector('.list-view')
+            renderBookList(elListContainer)
             break;
     }
 
 }
 
-function renderBookTable(elTableContainer) {
-    console.log('gFilteredBooks', gFilteredBooks)
-    elTableContainer.classList.remove('grid-view')
-    elTableContainer.classList.remove('list-view')
-    elTableContainer.classList.add('table-view')
+function renderBookTable(elDataContainer) {
+    document.querySelector('.table-view').style.display = 'table-row-group'
+    document.querySelector('.list-view').style.display = 'none'
+    document.querySelector('.grid-view').style.display = 'none'
 
-    var tableStrHTML = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th> <div class= "table-header">Title</div> </th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>`
+    const elTbody = elDataContainer.querySelector('tbody')
+    var tableStrHTML = gFilteredBooks.map(book => {
+        return `
+        <tr> 
+            <td> ${getBookHeaderHTML(book)}</td>
+            <td> ${book.price}</td>
+            <td> ${getActionBtnsHTML(book)}</td>
+        </tr>`}).join('')
 
-    tableStrHTML += gFilteredBooks.map(book => {
-        var strHTML = ''
-        strHTML += `<tr> 
-                        <td> 
-                            ${getBookHeaderHTML(book)}
-                        </td>`
-
-        strHTML += `
-                <td> 
-                 ${book.price}
-                </td>
-                <td>
-                    ${getActionBtnsHTML(book)}
-                </td>
-            </tr> `
-        return strHTML
-    }
-    ).join('')
-
-    tableStrHTML += `</table>
-`
-
-    elTableContainer.innerHTML = tableStrHTML
-    const elRatingChips = elTableContainer.querySelectorAll('.rating-chip')
+    elTbody.innerHTML = tableStrHTML
+    const elRatingChips = elDataContainer.querySelectorAll('.rating-chip')
     elRatingChips.forEach((elRatingChip, idx) => renderRatingChipStyle(elRatingChip, idx))
 }
 
 function renderGridBooks(elTableContainer) {
-    elTableContainer.classList.remove('table-view')
-    elTableContainer.classList.remove('list-view')
-
+    document.querySelector('.table-view').style.display = 'none'
+    document.querySelector('.list-view').style.display = 'none'
+    
+    elTableContainer.style.display = 'grid'
+    
     var tableStrHTML = ''
     elTableContainer.classList.add('grid-view')
     tableStrHTML += gFilteredBooks.map(book => {
-        var strHTML = ''
-        strHTML += `<div class="book-card">
-                        ${getBookHeaderHTML(book)}
-                        <img src="${book.imgUrl}" class="book-cover">
-                                    <div class="book-price">Price: $${book.price} </div>
-
-                        ${getActionBtnsHTML(book)}
-
-                        </div>`
-        return strHTML
-    }
-    ).join('')
-
-    elTableContainer.innerHTML = tableStrHTML
-    const elRatingChips = elTableContainer.querySelectorAll('.rating-chip')
-    elRatingChips.forEach((elRatingChip, idx) => {
-        renderRatingChipStyle(elRatingChip, idx)
-        elRatingChip.style.margin = 0
-    }
+        return `
+        <div class="book-card">
+        ${getBookHeaderHTML(book)}
+        <img src="${book.imgUrl}" class="book-cover">
+        <div class="book-price">Price: $${book.price} </div>
+        ${getActionBtnsHTML(book)}
+        </div>`}).join('')
+        
+        elTableContainer.innerHTML = tableStrHTML
+        const elRatingChips = elTableContainer.querySelectorAll('.rating-chip')
+        elRatingChips.forEach((elRatingChip, idx) => {
+            renderRatingChipStyle(elRatingChip, idx)
+            elRatingChip.style.margin = 0
+        }
     )
-
+    
 }
 
 function renderBookList(elTableContainer) {
-    elTableContainer.classList.remove('table-view')
-    elTableContainer.classList.remove('grid-view')
+    document.querySelector('.table-view').style.display = 'none'
+    document.querySelector('.grid-view').style.display = 'none'
+    elTableContainer.style.display = 'flex'
 
-    var tableStrHTML = ''
-    elTableContainer.classList.add('list-view')
-    tableStrHTML += gFilteredBooks.map(book => {
+    var tableStrHTML = gFilteredBooks.map(book => {
         var strHTML = ''
         strHTML += `
 <div class="book-card" id="book-${book.id}">
@@ -152,7 +126,6 @@ function renderBookList(elTableContainer) {
             </div>
         </div>
         ${getActionBtnsHTML(book)}
-
     </div>`
         return strHTML
     }
@@ -178,6 +151,38 @@ function onRemoveBook(bookId) {
     showSuccessMsg('Book was deleted successfully!')
 }
 
+function onOpenEditModal(bookId) {
+    const elEditModal = document.querySelector('.book-edit-modal')
+    const elBookCover = elEditModal.querySelector('.book-cover')
+
+    if (bookId) {
+        gCurrBookId = bookId
+        const book = getBookById(bookId)
+        elEditModal.querySelector('.title-input').value = book.title
+        elEditModal.querySelector('.price-input').value = book.price
+        elBookCover.innerHTML = `<img class="book-cover" src="${book.imgUrl}" alt=""></img>`
+    } else {
+        elBookCover.innerHTML = `
+        <label for="book-cover">
+        <svg class="upload-cover-icon" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-upload"
+        viewBox="0 0 16 16">
+        <path
+        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+        <path
+        d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+        </svg>
+        Upload a book cover image 
+        </label>
+        <input type="file" id="book-cover" />
+        `
+
+        const elBookCoverInput = elBookCover.querySelector('input')
+        elBookCoverInput.style.opacity = 0
+
+    }
+    elEditModal.showModal()
+}
+
 function onUpdateBook(bookId) {
     if (gIsEditMode) return
 
@@ -191,44 +196,6 @@ function onUpdateBook(bookId) {
     renderBooks()
     showSuccessMsg('Book was updated successfully!')
 
-}
-
-function onOpenEditModal(bookId) {
-    const elEditModal = document.querySelector('.book-edit-modal')
-    const elBookCover = elEditModal.querySelector('.book-cover')
-
-    if (bookId) {
-        gCurrBookId = bookId
-        const book = getBookById(bookId)
-        elEditModal.querySelector('.title-input').value = book.title
-        elEditModal.querySelector('.price-input').value = book.price
-        elBookCover.innerHTML = `<img class="book-cover" src="${book.imgUrl}" alt=""></img>`
-    } else {
-        elBookCover.innerHTML = `
-                <label for="book-cover">
-                    <svg class="upload-cover-icon" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-upload"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
-                        <path
-                            d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
-                    </svg>
-                    Upload a book cover image 
-                </label>
-                <input type="file" id="book-cover" />
-        `
-
-        const elBookCoverInput = elBookCover.querySelector('input')
-        elBookCoverInput.style.opacity = 0
-
-    }
-    elEditModal.showModal()
-}
-
-function onCancelAddBook() {
-    gCurrBookId = null
-    hideAddBookUI()
-    enableActions()
 }
 
 function onAddBook(elForm, ev) {
@@ -250,6 +217,12 @@ function onAddBook(elForm, ev) {
     enableActions()
     showSuccessMsg('Book was added successfully!')
     renderBooks()
+}
+
+function onCancelAddBook() {
+    gCurrBookId = null
+    hideAddBookUI()
+    enableActions()
 }
 
 function onShowDetails(bookId) {
@@ -274,7 +247,7 @@ function onShowDetails(bookId) {
 function onSetFilter() {
     const elTitle = document.querySelector('.filter-by-title')
     const elMinRating = document.querySelector('.filter-by-rating')
-    console.log('elMinRating',elMinRating.value)
+    console.log('elMinRating', elMinRating.value)
     gQueryOptions.page = {
         idx: 0,
         size: 4
@@ -289,13 +262,19 @@ function onSetFilter() {
     renderBooks()
 }
 
-
 function onClearFilter() {
+    clearFilter()
+}
+
+function clearFilter() {
     gQueryOptions.filterBy = {
         title: '',
         minRating: null
     }
+
+    gQueryOptions.page.idx = 0
     setQueryParams()
+    renderQueryParams()
     renderBooks()
     renderDefaultFilter()
 }
@@ -320,22 +299,28 @@ function onSetSortBy(field) {
 
     if (!elSortDirection) document.querySelector('.sort-ascend').checked = true
 
-    gQueryOptions.page = {
-        idx: 0,
-        size: 4
-    }
+    gQueryOptions.page.idx = 0
     setQueryParams()
+    renderQueryParams()
     renderBooks()
 }
 
 function onClearSortBy() {
+    clearSortBy()
+}
+
+function clearSortBy() {
     if (!gQueryOptions.sortBy.sortField) return
-    
+
     gQueryOptions.sortBy = {
         sortField: '',
         sortDir: null
     }
 
+    gQueryOptions.page.idx = 0
+
+    setQueryParams()
+    renderQueryParams()
     renderBooks()
     renderDefaultSortBy()
 }
@@ -467,9 +452,15 @@ function onChangeView(selectedView) {
         else elIcon.classList.add('active')
     })
 
-    console.log('elIcons', elIcons)
-    // const elOtherIcon = document.querySelector(`.${otherView}-icon`)
-    // elOtherIcon.classList.remove('active')
+    clearSortBy()
+    clearFilter()
+
+    gQueryOptions.page = {
+        idx: 0,
+        size: 6
+    }
+    setQueryParams()
+    renderQueryParams()
     renderBooks()
 }
 
@@ -614,7 +605,6 @@ function setQueryParams() {
 
     if (gQueryOptions.filterBy.title) {
         queryParams.set('title', gQueryOptions.filterBy.title)
-
     }
 
     if (gQueryOptions.sortBy.sortField) {
@@ -643,7 +633,8 @@ function onNextPage() {
         gQueryOptions.page.idx = 0
     }
 
-    document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
+    setQueryParams()
+    renderQueryParams()
     renderBooks()
 }
 
@@ -654,6 +645,7 @@ function onPrevPage() {
         gQueryOptions.page.idx = getLastPage(gQueryOptions)
     }
 
-    document.querySelector('.pagination-state').innerText = gQueryOptions.page.idx + 1
+    setQueryParams()
+    renderQueryParams()
     renderBooks()
 }
