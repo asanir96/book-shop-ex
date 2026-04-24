@@ -33,20 +33,22 @@
 
 .filter {
     display: grid;
-    grid-template-columns: 5fr 4fr 1fr;
+    grid-template-columns: 5fr 3fr 3fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas:
-        'input rating clear';
+        'input input rating clear';
     justify-content: center;
     align-items: center;
     width: 100%;
     margin-block: 10px;
     margin-block-end: 0;
     column-gap: 10px;
-    padding-block: 0;
+    /* padding-block: 5px; */
+    gap: 5px;
 }
 
-.by-title {
+
+.filter-by-title {
     margin-block: 10px;
     grid-area: input;
 }
@@ -143,12 +145,13 @@ button:hover {
 
 .read-btn,
 .update-btn,
-.delete-btn {
+.delete-btn,
+.form-submit-btn {
     background-color: white;
     border: 2px solid lightgrey;
     display: flex;
     padding: 3px;
-    ;
+
     gap: 2px;
     align-items: center;
     justify-content: flex-start;
@@ -165,7 +168,8 @@ button:hover {
     color: rgb(238, 110, 110);
 }
 
-.update-btn {
+.update-btn,
+.form-submit-btn {
     border: 2px solid rgb(207, 146, 40);
     color: rgb(207, 146, 40);
 
@@ -177,8 +181,13 @@ button:hover {
 
 }
 
+.add-cancel-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 10;
+}
 
-.add-approve-btn,
 .add-cancel-btn,
 .add-btn {
     width: 3em;
@@ -188,7 +197,6 @@ button:hover {
     background-color: white;
 }
 
-.add-approve-btn,
 .add-cancel-btn {
     margin: auto auto;
 }
@@ -208,14 +216,14 @@ button:hover {
     margin: auto auto;
 }
 
-.add-approve-btn:hover,
+.form-submit-btn:hover,
 .add-cancel-btn:hover,
 .add-btn:hover {
     /* background-color: rgb(145, 143, 146); */
 
 }
 
-.add-approve-btn:active,
+.form-submit-btn:active,
 .add-cancel-btn:active,
 .add-btn:active {
     background-color: rgb(145, 143, 146);
@@ -234,10 +242,17 @@ dialog form {
     align-items: center;
 }
 
+.book-edit-modal {
+    position: relative;
+    z-index: 9;
+    overflow: visible;
+}
+
 .book-edit-modal .book-cover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin-block: 10px;
 }
 
@@ -264,7 +279,7 @@ dialog form {
 .upload-cover-icon {
     width: 5w;
     height: 5vw;
-    margin-block:5px;
+    margin-block: 5px;
 }
 
 .book-edit-modal img {
@@ -316,12 +331,20 @@ dialog form {
     /* gap: 0.7em */
 }
 
-.book-cover {
-    padding: 0.2em;
+.grid-view .book-cover-img {
     width: 70%;
     height: 80%;
 }
 
+.rating-chip.star.selected{
+    line-height: 100%;
+    padding: 2px;
+    justify-content: center;
+    border: 2px solid rgb(248, 211, 1);
+    background-color: white;
+    border-radius: 5px;
+    margin: 5px 5px;
+}
 .book-title {
     margin-inline-start: 0;
 }
@@ -355,7 +378,6 @@ img {
 .star.selected {
     color: rgb(248, 211, 1);
     opacity: 1;
-    margin-inline-start: 10px;
 }
 
 .pagination {
@@ -409,10 +431,8 @@ td {
     height: 2em;
 
     align-content: center;
-    overflow: hidden;
-    /* hide overflowing content */
+    overflow: scroll;
     text-overflow: ellipsis;
-    /* show "..." instead of hard cutoff */
     white-space: nowrap;
 
     padding-inline: 0.4em;
@@ -441,29 +461,25 @@ tr:last-child td {
 
 table {
     flex-shrink: 1;
-    /* width: 100%; */
-    /* table-layout: fixed; */
     max-width: 100%;
     border-collapse: collapse;
     margin: auto auto;
 }
 
-.table-view .actions {
+.table-container .actions {
     background-color: transparent;
     border: 0;
 }
 
-.table-view .book-header {
-    width: 20vw;
+.table-container .book-header {
     flex-wrap: wrap;
 }
 
 
-.data-container.table-view {
+.data-container.table-container {
     display: table;
     overflow-x: auto;
     width: 100%;
-
 
 }
 
@@ -490,6 +506,9 @@ table {
 }
 
 /* list view */
+.list-view {
+    flex-direction: column;
+}
 
 .list-view .book-card {
     width: 100%;
@@ -585,18 +604,27 @@ table {
 
 .book-information {
     display: grid;
-    grid-template-columns: 1fr 3fr 5fr;
-    grid-template-rows: 2fr 1fr;
+    grid-template-columns: 10fr 2fr 5fr;
+    grid-template-rows: 5fr 1fr;
     grid-template-areas:
-        "cover rate"
-        "cover price";
+        "edit . ."
+        "actions actions actions";
 
     width: 100%;
     height: fit-content;
 
     gap: 10px;
-    padding: 10px;
-    align-items: end;
+    padding: 0;
+    padding-block-start: 10px;
+    align-items: center;
+    justify-items: flex-start;
+}
+
+.list-view .actions {
+    grid-area: actions;
+    display: flex;
+    flex-direction: row;
+    align-self: end;
 }
 
 .book-information .change-rating-btn {
@@ -604,14 +632,49 @@ table {
 
 }
 
-.book-information .book-cover {
-    margin: 0;
-    width: 4em;
-    height: 6em;
-    background-color: lightgray;
-    border: 2px solid lightgrey;
+.book-information .book-edit-form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas:
+        'cover edit'
+        '. .';
 
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.book-information .edit {
+    grid-area: edit;
+}
+
+.book-edit-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-information .btn-container {
+    grid-area: edit;
+    align-self: end;
+}
+
+.book-information .rate {
+    grid-area: rate;
+}
+
+.book-information .book-cover-img {
+    margin: 0;
+    width: 8em;
+    height: 12em;
     grid-area: cover;
+}
+
+.book-information .book-edit {
+    grid-area: edit;
 }
 
 .actions {
@@ -647,12 +710,21 @@ table {
     flex-direction: column;
     opacity: 0.6;
 
+
     position: relative;
     top: 10px;
     margin-block-end: 5px;
     grid-area: rate;
     justify-content: flex-start;
     align-items: flex-start;
+}
+
+.rate {
+    border: 2px solid rgb(170, 45, 10);
+    border-radius: 5px;
+    color: rgb(170, 45, 10);
+
+    padding: 5px;
 }
 
 
@@ -662,4 +734,9 @@ table {
     justify-content: flex-start;
     align-self: end;
 
+}
+
+.bi.bi-star-fill {
+    display: none;
+    opacity: 0.4;
 }
